@@ -1,6 +1,6 @@
-# Otsikko
-## Alaotsikko
+# Ohjelmistotekniikka, harjoitustyö
+## Tehtävät
+### Viikko 1
 
-123
-*123*
-**123**
+[gitlog.txt](https://github.com/Teo44/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+[komentorivi.txt](https://github.com/Teo44/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
