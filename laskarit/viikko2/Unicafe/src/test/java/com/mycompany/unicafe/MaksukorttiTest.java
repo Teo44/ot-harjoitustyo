@@ -20,19 +20,19 @@ public class MaksukorttiTest {
     
     @Test
     public void saldoAlussaOikein() {
-        assertEquals(10.0, kortti.saldo());
+        assertEquals(10.0, kortti.saldo(), 0);
     }
     
     @Test
     public void saldonLataaminenToimiiOikein()  {
         kortti.lataaRahaa(10);
-        assertEquals(20.0, kortti.saldo());
+        assertEquals(20.0, kortti.saldo(), 0);
     }
     
     @Test
     public void rahanOttaminenToimii()  {
         kortti.otaRahaa(5);
-        assertEquals(5.0, kortti.saldo());
+        assertEquals(5.0, kortti.saldo(), 0);
     }
     
     @Test
@@ -44,13 +44,18 @@ public class MaksukorttiTest {
     public void rahanOttaminenKunSaldoEiRiita() {
         kortti.otaRahaa(5);
         kortti.otaRahaa(6);
-        assertEquals(5.0, kortti.saldo());
+        assertEquals(5.0, kortti.saldo(), 0);
     }
     
     @Test
     public void rahanOttaminenBooleanKunSaldoEiRiita()  {
         kortti.otaRahaa(5);
         assertFalse(kortti.otaRahaa(6));
+    }
+    
+    @Test
+    public void toStringToimii()    {
+        assertEquals("saldo: 10.0", kortti.toString());
     }
     
 }
