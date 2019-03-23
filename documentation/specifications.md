@@ -1,4 +1,4 @@
-# Requirements specification
+# Specifications
 
 ## Use cases
 
