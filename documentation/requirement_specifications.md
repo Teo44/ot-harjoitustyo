@@ -9,7 +9,7 @@ users will also be able to add automatically scrolling chord-diagrams.
 
 ## Users
 
-THe only user role will be a normal user, as there is no need for administrators and such.
+The only user role will be a normal user, as there is no need for administrators and such.
 
 ## Basic features
 
