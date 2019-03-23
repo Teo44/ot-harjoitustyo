@@ -23,3 +23,7 @@ The only user role will be a normal user, as there is no need for administrators
 - More features for the player, such as next file, previous file and repeat
 - Saveable playlists
 - Auto-scrolling chord-diagrams
+
+## GUI-draft
+
+<img src="https://raw.githubusercontent.com/Teo44/ot-harjoitustyo/master/documentation/GUI-draft.png">
