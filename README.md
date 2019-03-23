@@ -10,3 +10,5 @@
 ## Sovellus
 
 [Määrittelydokumentti](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/specifications.md)
+
+[Työaikakirjanpito](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/work_hours.md)
