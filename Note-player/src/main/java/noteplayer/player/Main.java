@@ -21,6 +21,7 @@ public class Main {
             if (input.equals("quit")) break;
             else if (input.equals("pause")) audio.pausePlayback();
             else if (input.equals("unpause")) audio.unpausePlayback();
+            else if (input.equals("isplaying")) System.out.println(audio.isPlaying());
             else audio.play(input);
             
         }

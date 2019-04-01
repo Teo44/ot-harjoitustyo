@@ -31,6 +31,10 @@ public class Audio  {
         
     }
     
+    public boolean isPlaying()  {
+        return clip.isActive();
+    }
+    
     public void pausePlayback()  {
         clip.stop();
     }
