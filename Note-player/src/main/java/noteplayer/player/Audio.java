@@ -11,7 +11,7 @@ public class Audio  {
     private Clip clip;
     private File audioFile;
     
-    public void play(String file)  {
+    public void play(String file, String curDir)  {
         
         // Stop any ongoing playback before starting the new one
         if (clip != null)   {
@@ -19,7 +19,7 @@ public class Audio  {
         }
         
         try {
-            audioFile = new File(file);
+            audioFile = new File(curDir + "/" + file);
             stream = AudioSystem.getAudioInputStream(audioFile);
             clip = AudioSystem.getClip();
             clip.open(stream);

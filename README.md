@@ -1,7 +1,6 @@
 # Note-player
 
-Currently, the only functionality of Note-player is playing back .wav files. See specifications for 
-planned features.
+Currently, the only functionality of Note-player is playing back .wav files, and limited file browsing. See specifications for planned features.
 
 ## Documentation
 
@@ -17,7 +16,7 @@ After cloning the repository, the application can currently be ran with
 mvn compile exec:java -Dexec.mainClass=noteplayer.player.Main
 ```
 
-Entering a filepath (with the project folder as root) to a .wav file will play the file.
+Entering a filepath to a .wav file will play the file.
 
 For testing purposes, two royalty-free tracks have been included in the repository:
 
@@ -25,6 +24,20 @@ For testing purposes, two royalty-free tracks have been included in the reposito
 test_audio/ukulele.wav
 
 test_audio/guitar.wav
+```
+
+List files in current directory:
+```
+list
+```
+Move to a directory:
+```
+cd directory
+```
+
+Move back to the root directory:
+```
+cd .
 ```
 
 Exiting the application (currently has a long delay when running in the terminal):

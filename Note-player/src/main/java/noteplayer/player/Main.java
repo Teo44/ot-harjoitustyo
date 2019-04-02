@@ -1,7 +1,7 @@
 package noteplayer.player;
 
 import java.util.*;
-import filebrowser.Lister;
+import filebrowser.Browser;
 
 
 public class Main {
@@ -12,8 +12,8 @@ public class Main {
         
         
         Scanner scanner = new Scanner(System.in);
+        Browser lister = new Browser();
         Audio audio = new Audio();
-        Lister lister = new Lister();
         
         // Temporary command line UI, wont be needed later
         while (true)    {
@@ -35,7 +35,18 @@ public class Main {
             else if (input.equals("isplaying")) {
                 System.out.println(audio.isPlaying());
             }
-            else audio.play(input);
+            else if (input.matches("cd .*")) {
+                // testing
+                System.out.println("changing directory");
+                String [] s = input.split(" ");
+                if (s.length == 2)  {
+                    //lister.changeDirectory(s[1]
+                    
+                    // print is for testing
+                    System.out.println(lister.changeDirectory(s[1]));
+                }
+            }
+            else audio.play(input, lister.getCurrentDirectory());
             
         }
         
@@ -43,7 +54,7 @@ public class Main {
     
     
     
-    private static void printFiles(Lister lister)    {
+    private static void printFiles(Browser lister)    {
         
         for (String s : lister.listFilesString()) {
             System.out.println(s);
