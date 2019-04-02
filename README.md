@@ -1,6 +1,6 @@
 # Note-player
 
-Currently, the only functions of Note-player are playing back .wav files and limited file browsin through a terminal. A GUI is in the works. See specifications for all the planned features.
+Currently, the only functions of Note-player are playing back .wav files and limited file browsing through a terminal. A GUI is in the works. See specifications for all the planned features.
 
 ## Documentation
 
