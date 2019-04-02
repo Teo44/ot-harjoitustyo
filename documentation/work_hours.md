@@ -5,3 +5,4 @@
 | 23.3.| 3	  | Specifications |
 | 1.4. | 3    | Audio playback |
 | 2.4. | 2    | File browsing |
+| 2.4. | 1    | Tests, fixing file browser |
