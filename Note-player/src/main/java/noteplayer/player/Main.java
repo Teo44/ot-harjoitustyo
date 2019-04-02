@@ -18,7 +18,10 @@ public class Main {
         while (true)    {
             String input = scanner.nextLine();
             
-            if (input.equals("quit")) break;
+            if (input.equals("quit"))   {
+                audio.pausePlayback();
+                break;
+            }
             else if (input.equals("pause")) audio.pausePlayback();
             else if (input.equals("unpause")) audio.unpausePlayback();
             else if (input.equals("isplaying")) System.out.println(audio.isPlaying());
