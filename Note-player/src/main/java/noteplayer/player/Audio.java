@@ -11,6 +11,9 @@ public class Audio  {
     private Clip clip;
     private File audioFile;
     
+    // This play-method can be given the current directory
+    // as a string, and it will append the given filepath 
+    // to that
     public void play(String file, String curDir)  {
         
         // Stop any ongoing playback before starting the new one
@@ -20,6 +23,26 @@ public class Audio  {
         
         try {
             audioFile = new File(curDir + "/" + file);
+            stream = AudioSystem.getAudioInputStream(audioFile);
+            clip = AudioSystem.getClip();
+            clip.open(stream);
+            clip.start();
+        } catch (Exception e)   {
+            System.out.print("Could not play file: ");
+            System.out.println(e);
+        }
+        
+    }
+    
+    public void play(String file)  {
+        
+        // Stop any ongoing playback before starting the new one
+        if (clip != null)   {
+            clip.stop();
+        }
+        
+        try {
+            audioFile = new File(file);
             stream = AudioSystem.getAudioInputStream(audioFile);
             clip = AudioSystem.getClip();
             clip.open(stream);

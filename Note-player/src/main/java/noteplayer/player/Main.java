@@ -1,7 +1,7 @@
 package noteplayer.player;
 
 import java.util.*;
-import filebrowser.Browser;
+import noteplayer.filebrowser.Browser;
 
 
 public class Main {
@@ -55,7 +55,8 @@ public class Main {
     
     
     private static void printFiles(Browser lister)    {
-        
+        //System.out.println(Arrays.toString(lister.listFilesString()));
+        if (lister.listFilesString() == null) return;
         for (String s : lister.listFilesString()) {
             System.out.println(s);
         }

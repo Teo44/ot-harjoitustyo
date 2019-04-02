@@ -1,4 +1,4 @@
-package filebrowser;
+package noteplayer.filebrowser;
 
 import java.io.File;
 import java.util.*;
@@ -21,7 +21,7 @@ public class Browser {
             currentDirectory = new File(".");
             return true;
         }
-        if (directoryExists("./"+s)) {
+        if (directoryExists(currentDirectory.toString() + "/"+s)) {
             currentDirectory = new File("./"+s);
             return true;
         }
@@ -46,6 +46,9 @@ public class Browser {
     
     public String[] listFilesString()  { 
         File[] files = currentDirectory.listFiles();
+        if (files == null)  {
+            return null;
+        }
         String[] returnList = new String[files.length];
         
         for (int i = 0; i < files.length; i++)  {
