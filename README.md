@@ -1,6 +1,7 @@
 # Note-player
 
-
+Currently, the only functionality of Note-player is playing back .wav files. See specifications for 
+planned features.
 
 ## Documentation
 
