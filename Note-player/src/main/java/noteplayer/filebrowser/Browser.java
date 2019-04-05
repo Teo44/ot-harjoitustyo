@@ -15,14 +15,28 @@ public class Browser {
         return currentDirectory.toString();
     }
     
+    public boolean moveUpOneDirectory() {
+        String curDir = getCurrentDirectory();
+        // do nothing if already at root directory
+        if (curDir.equals("."))   {
+            return false;
+        }
+        String[] levels = curDir.split("/");
+        //System.out.println(levels[levels.length - 1]);
+        String newDir = curDir.replace("/" + levels[levels.length - 1], "");
+        //System.out.println(newDir);
+        currentDirectory = new File(newDir);
+        return true;
+    }
+    
     public boolean changeDirectory(String s)   {
         // TODO: moving up a directory when input is ".."
         if (s.equals("."))  {
             currentDirectory = new File(".");
             return true;
         }
-        if (directoryExists(currentDirectory.toString() + "/"+s)) {
-            currentDirectory = new File("./"+s);
+        if (directoryExists(s)) {
+            currentDirectory = new File(s);
             return true;
         }
         return false;
@@ -47,7 +61,8 @@ public class Browser {
     public String[] listFilesString()  { 
         File[] files = currentDirectory.listFiles();
         if (files == null)  {
-            return null;
+            String[] list = {""};
+            return list;
         }
         String[] returnList = new String[files.length];
         

@@ -35,6 +35,9 @@ public class Main {
             else if (input.equals("isplaying")) {
                 System.out.println(audio.isPlaying());
             }
+            else if (input.equals("cd ..")) {
+                System.out.println(lister.moveUpOneDirectory());
+            }
             else if (input.matches("cd .*")) {
                 // testing
                 System.out.println("changing directory");
