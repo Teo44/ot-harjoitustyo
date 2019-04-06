@@ -59,7 +59,9 @@ public class Audio  {
     }
     
     public void pausePlayback()  {
-        if (clip == null) return;
+        if (clip == null)   {
+            return;
+        }
         clip.stop();
     }
     

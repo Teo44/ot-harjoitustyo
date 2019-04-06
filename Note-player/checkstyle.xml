@@ -76,8 +76,12 @@
         <module name='WhitespaceAround'>
             <property name='allowEmptyConstructors' value='true' />
             <property name='allowEmptyMethods' value='true' />
-        </module>
-    </module>
+        </module>	
+	</module>
+		
+	<module name="SuppressionFilter">
+		<property name="file" value="skipped_files.xml" />
+	</module>
 
     <!-- File Length -->
 

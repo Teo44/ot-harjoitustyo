@@ -22,23 +22,17 @@ public class Main {
             if (input.equals("quit"))   {
                 audio.pausePlayback();
                 break;
-            }
-            else if (input.equals("pause")) {
+            } else if (input.equals("pause")) {
                 audio.pausePlayback();
-            }
-            else if (input.equals("list") || input.equals("ls"))  {
+            } else if (input.equals("list") || input.equals("ls"))  {
                 printFiles(lister);
-            }
-            else if (input.equals("unpause"))   {
+            } else if (input.equals("unpause"))   {
                 audio.unpausePlayback();
-            }
-            else if (input.equals("isplaying")) {
+            } else if (input.equals("isplaying")) {
                 System.out.println(audio.isPlaying());
-            }
-            else if (input.equals("cd ..")) {
+            } else if (input.equals("cd ..")) {
                 System.out.println(lister.moveUpOneDirectory());
-            }
-            else if (input.matches("cd .*")) {
+            } else if (input.matches("cd .*")) {
                 // testing
                 System.out.println("changing directory");
                 String [] s = input.split(" ");
@@ -48,8 +42,9 @@ public class Main {
                     // print is for testing
                     System.out.println(lister.changeDirectory(s[1]));
                 }
+            } else  {
+                audio.play(input, lister.getCurrentDirectory());
             }
-            else audio.play(input, lister.getCurrentDirectory());
             
         }
         
@@ -59,7 +54,9 @@ public class Main {
     
     private static void printFiles(Browser lister)    {
         //System.out.println(Arrays.toString(lister.listFilesString()));
-        if (lister.listFilesString() == null) return;
+        if (lister.listFilesString() == null)   {
+            return;
+        }
         for (String s : lister.listFilesString()) {
             System.out.println(s);
         }
