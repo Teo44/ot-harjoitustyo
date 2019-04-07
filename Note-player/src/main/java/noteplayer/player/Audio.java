@@ -34,6 +34,26 @@ public class Audio  {
         
     }
     
+    public void play(File file)  {
+        
+        // Stop any ongoing playback before starting the new one
+        if (clip != null)   {
+            clip.stop();
+        }
+        
+        try {
+            audioFile = file;
+            stream = AudioSystem.getAudioInputStream(audioFile);
+            clip = AudioSystem.getClip();
+            clip.open(stream);
+            clip.start();
+        } catch (Exception e)   {
+            System.out.print("Could not play file: ");
+            System.out.println(e);
+        }
+        
+    }
+    
     public void play(String file)  {
         
         // Stop any ongoing playback before starting the new one
@@ -56,6 +76,17 @@ public class Audio  {
     
     public boolean isPlaying()  {
         return clip.isActive();
+    }
+    
+    public void togglePause()   {
+        if (clip == null)   {
+            return;
+        }
+        if (clip.isActive())    {
+            clip.stop();
+        } else  {
+            clip.start();
+        }
     }
     
     public void pausePlayback()  {

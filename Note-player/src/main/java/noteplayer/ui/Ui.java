@@ -1,5 +1,6 @@
 package noteplayer.ui;
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,7 +51,11 @@ public class Ui extends Application{
     private HBox playerButtons()    {
         HBox buttons = new HBox();
         buttons.getChildren().add(new Button("<<"));
-        buttons.getChildren().add(new Button("||"));
+        Button playButton = new Button("||");
+        playButton.setOnAction((event) ->   {
+            audio.togglePause();
+        });
+        buttons.getChildren().add(playButton);
         buttons.getChildren().add(new Button(">>"));
         return buttons;
     }
@@ -64,7 +69,8 @@ public class Ui extends Application{
     // VBox. 
     // TODO: return a list for more flexibility?
     private VBox fileVBox()    {
-        String[] files = browser.listFilesString();
+        //String[] files = browser.listFilesString();
+        File[] files = browser.listFiles();
         VBox fileBox = new VBox();
         Button up = new Button("Upper directory");
         up.setOnAction((event) ->   {
@@ -73,14 +79,12 @@ public class Ui extends Application{
         });
         fileBox.getChildren().add(up);
         for(int i = 0; i < files.length; i++)   {
-             String file = files[i];
-             Button button = new Button(file);
+             File file = files[i];
+             Button button = new Button(file.toString());
              // TODO: change directory if file is directory,
              // otherwise attempt to play file
              button.setOnAction((event) ->  {
-                 browser.changeDirectory(file);
-                 //System.out.println(file);
-                 //System.out.println(browser.getCurrentDirectory());
+                 browser.changeDirectoryOrPlay(file, audio);
                  refreshFiles();
              });
              fileBox.getChildren().add(button);

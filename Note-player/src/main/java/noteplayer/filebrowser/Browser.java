@@ -1,7 +1,7 @@
 package noteplayer.filebrowser;
 
 import java.io.File;
-import java.util.*;
+import noteplayer.player.Audio;
 
 public class Browser {
     
@@ -41,6 +41,24 @@ public class Browser {
         }
         return false;
     }
+    
+    public boolean changeDirectoryOrPlay(File f, Audio audio)   {
+        if (f.isDirectory())    {
+            String s = f.toString();
+            if (s.equals("."))  {
+                currentDirectory = new File(".");
+                return true;
+            }
+            if (directoryExists(s)) {
+                currentDirectory = new File(s);
+                return true;
+            }
+            return false;
+        } else  {
+            audio.play(f.toString());
+            return true;
+        }
+    } 
     
     private boolean directoryExists(String d)   {
         for (File f : listFiles())    {
