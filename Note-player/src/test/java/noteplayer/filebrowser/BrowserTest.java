@@ -20,8 +20,6 @@ public class BrowserTest {
         browser.changeDirectory("./test_audio/test_folder");
         assertEquals("[./test_audio/test_folder/test.file]", 
                 Arrays.toString(browser.listFilesString()));
-//        assertEquals("[./test_audio/credits.txt, ./test_audio/guitar.wav, ./test_audio/test_folder, ./test_audio/ukulele.wav]", 
-//                Arrays.toString(browser.listFilesString()));
         
     }
     
