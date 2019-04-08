@@ -17,8 +17,11 @@ public class BrowserTest {
     @Test
     public void changingDirectoryWorks()    {
         browser.changeDirectory("./test_audio");
-        assertEquals("[./test_audio/credits.txt, ./test_audio/guitar.wav, ./test_audio/test_folder, ./test_audio/ukulele.wav]", 
+        browser.changeDirectory("./test_audio/test_folder");
+        assertEquals("[./test_audio/test_folder/test.file]", 
                 Arrays.toString(browser.listFilesString()));
+//        assertEquals("[./test_audio/credits.txt, ./test_audio/guitar.wav, ./test_audio/test_folder, ./test_audio/ukulele.wav]", 
+//                Arrays.toString(browser.listFilesString()));
         
     }
     
@@ -33,8 +36,9 @@ public class BrowserTest {
     @Test
     public void changingDirectoryToFileDoesntDoAnything()   {
         browser.changeDirectory("./test_audio");
-        browser.changeDirectory("ukulele.wav");
-        assertEquals("[./test_audio/credits.txt, ./test_audio/guitar.wav, ./test_audio/test_folder, ./test_audio/ukulele.wav]", 
+        browser.changeDirectory("./test_audio/test_folder");
+        browser.changeDirectory("./test_audio/test_folder/test.file");
+        assertEquals("[./test_audio/test_folder/test.file]", 
                 Arrays.toString(browser.listFilesString()));
         
     }
