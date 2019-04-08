@@ -128,6 +128,7 @@ public class Ui extends Application{
     private VBox fileVBox()    {
         //String[] files = browser.listFilesString();
         File[] files = browser.listFiles();
+        String[] names = browser.listFilesFormatted();
         VBox fileBox = new VBox();
         Button up = new Button("Upper directory");
         up.setOnAction((event) ->   {
@@ -137,7 +138,8 @@ public class Ui extends Application{
         fileBox.getChildren().add(up);
         for(int i = 0; i < files.length; i++)   {
              File file = files[i];
-             Button button = new Button(file.toString());
+             //Button button = new Button(file.toString());
+             Button button = new Button(names[i]);
              // TODO: change directory if file is directory,
              // otherwise attempt to play file
              button.setOnAction((event) ->  {

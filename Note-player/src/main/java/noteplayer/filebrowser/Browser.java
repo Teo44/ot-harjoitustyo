@@ -83,6 +83,17 @@ public class Browser {
         return currentDirectory.listFiles();
     }
     
+    public String[] listFilesFormatted()    {
+        File[] files = currentDirectory.listFiles();
+        String[] names = new String[files.length];
+        for (int i = 0; i < files.length; i++)  {
+            String name = files[i].toString();
+            String[] split = name.split(DS);
+            names[i] = split[split.length - 1];
+        }
+        return names;
+    }
+    
     public String[] listFilesString()  { 
         File[] files = currentDirectory.listFiles();
         if (files == null)  {
