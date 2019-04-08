@@ -54,8 +54,6 @@ quit
 
 ## Tests
 
-Note that some tests dont currently pass on Windows due to filepaths differing from Unix systems.
-
 Running tests
 
 ```
