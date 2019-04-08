@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,7 @@ public class Ui extends Application{
     BorderPane pane;
     TextArea noteArea;
     String noteText;
+    TextField currentlyPlaying;
     
     HashMap<String, String> notes;
     
@@ -34,13 +36,16 @@ public class Ui extends Application{
         noteDAO = new NoteDAO();
         pane = new BorderPane();
         
+        currentlyPlaying = new TextField("");
         notes = new HashMap<>();
         
+        //TODO: a better layout, as in specifications
         VBox leftBox = fileVBox();
         pane.setLeft(leftBox);
         noteArea = noteTextArea();
         pane.setCenter(noteArea);
         HBox bottomBox = playerButtons();
+        bottomBox.getChildren().add(currentlyPlaying);
         pane.setBottom(bottomBox);
         
         Scene scene = new Scene(pane);
@@ -53,6 +58,12 @@ public class Ui extends Application{
         launch(Ui.class);
     }
     
+    private void updateCurrentlyPlaying()    {
+        if (audio.getCurrentlyPlayingString() == null)  {
+            return;
+        }
+        currentlyPlaying.setText(audio.getCurrentlyPlayingFormattedString());
+    }
     
     // TODO: save note to database, current saving is for testing
     private void saveNote() {
@@ -133,6 +144,7 @@ public class Ui extends Application{
                  browser.changeDirectoryOrPlay(file, audio);
                  if (file.isFile()) {
                     getNoteForSong(file);
+                    updateCurrentlyPlaying();
                  }
                  refreshFiles();
              });

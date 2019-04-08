@@ -42,6 +42,8 @@ public class Main {
                     // print is for testing
                     System.out.println(lister.changeDirectory(s[1]));
                 }
+            } else if (input.equals("os")) {
+                System.out.println(System.getProperty("os.name"));
             } else  {
                 audio.play(input, lister.getCurrentDirectory());
             }

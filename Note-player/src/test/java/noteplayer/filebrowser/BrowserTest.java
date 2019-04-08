@@ -8,24 +8,30 @@ import org.junit.Test;
 public class BrowserTest {
     
     static Browser browser;
+    static String DS;
     
     @BeforeClass
     public static void createBrowser()  {
         browser = new Browser();
+        if (System.getProperty("os.name").equals("Windows"))   {
+            DS = "\\";
+        } else  {
+            DS = "/";
+        }
     }
     
     @Test
     public void changingDirectoryWorks()    {
-        browser.changeDirectory("./test_audio");
-        browser.changeDirectory("./test_audio/test_folder");
-        assertEquals("[./test_audio/test_folder/test.file]", 
+        browser.changeDirectory("." + DS + "test_audio");
+        browser.changeDirectory("." + DS + "test_audio" + DS + "test_folder");
+        assertEquals("[."+DS+"test_audio"+DS+"test_folder"+DS+"test.file]", 
                 Arrays.toString(browser.listFilesString()));
         
     }
     
     @Test
     public void goingBackToHomeDirectoryWorks() {
-        browser.changeDirectory("./test_audio");
+        browser.changeDirectory("." + DS + "test_audio");
         browser.changeDirectory(".");
         assertEquals(".", browser.getCurrentDirectory());
         
@@ -33,10 +39,10 @@ public class BrowserTest {
     
     @Test
     public void changingDirectoryToFileDoesntDoAnything()   {
-        browser.changeDirectory("./test_audio");
-        browser.changeDirectory("./test_audio/test_folder");
-        browser.changeDirectory("./test_audio/test_folder/test.file");
-        assertEquals("[./test_audio/test_folder/test.file]", 
+        browser.changeDirectory("." + DS + "test_audio");
+        browser.changeDirectory("." + DS + "test_audio" + DS + "test_folder");
+        browser.changeDirectory("." + DS + "test_audio" + DS + "test_folder" + DS + "test_file");
+        assertEquals("[."+DS+"test_audio"+DS+"test_folder"+DS+"test.file]", 
                 Arrays.toString(browser.listFilesString()));
         
     }

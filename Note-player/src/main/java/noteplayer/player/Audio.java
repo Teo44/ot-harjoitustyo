@@ -10,6 +10,15 @@ public class Audio  {
     private AudioInputStream stream;
     private Clip clip;
     private File audioFile;
+    final private String DS;
+    
+    public Audio()  {
+        if (System.getProperty("os.name").equals("Windows"))   {
+            DS = "\\";
+        } else  {
+            DS = "/";
+        }
+    }
     
     // This play-method can be given the current directory
     // as a string, and it will append the given filepath 
@@ -56,6 +65,15 @@ public class Audio  {
     
     public File getCurrentlyPlayingFile()   {
         return audioFile;
+    }
+    
+    public String getCurrentlyPlayingFormattedString()  {
+        if (audioFile == null)  {
+            return null;
+        }
+        String song = audioFile.toString();
+        String[] split = song.split("/");
+        return split[split.length - 1];
     }
     
     public String getCurrentlyPlayingString()   {

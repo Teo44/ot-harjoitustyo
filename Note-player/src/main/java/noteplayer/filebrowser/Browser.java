@@ -6,9 +6,16 @@ import noteplayer.player.Audio;
 public class Browser {
     
     File currentDirectory;
+    // "directory separator", "/" on unix and "\" on windows
+    final String DS;
     
     public Browser() {
         currentDirectory = new File(".");
+        if (System.getProperty("os.name").equals("Windows"))   {
+            DS = "\\";
+        } else  {
+            DS = "/";
+        }
     }
     
     public String getCurrentDirectory() {
@@ -21,9 +28,9 @@ public class Browser {
         if (curDir.equals("."))   {
             return false;
         }
-        String[] levels = curDir.split("/");
+        String[] levels = curDir.split(DS);
         //System.out.println(levels[levels.length - 1]);
-        String newDir = curDir.replace("/" + levels[levels.length - 1], "");
+        String newDir = curDir.replace(DS + levels[levels.length - 1], "");
         //System.out.println(newDir);
         currentDirectory = new File(newDir);
         return true;
