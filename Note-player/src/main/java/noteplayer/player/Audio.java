@@ -54,6 +54,17 @@ public class Audio  {
         
     }
     
+    public File getCurrentlyPlayingFile()   {
+        return audioFile;
+    }
+    
+    public String getCurrentlyPlayingString()   {
+        if (audioFile == null)  {
+            return null;
+        }
+        return audioFile.toString();
+    }
+    
     public void play(String file)  {
         
         // Stop any ongoing playback before starting the new one

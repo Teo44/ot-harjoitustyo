@@ -1,6 +1,7 @@
 package noteplayer.ui;
 
 import java.io.File;
+import java.util.HashMap;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import noteplayer.dao.NoteDAO;
 import noteplayer.player.Audio;
 import noteplayer.filebrowser.Browser;
 
@@ -16,7 +18,12 @@ public class Ui extends Application{
     
     Audio audio;
     Browser browser;
+    NoteDAO noteDAO;
     BorderPane pane;
+    TextArea noteArea;
+    String noteText;
+    
+    HashMap<String, String> notes;
     
     @Override
     public void start(Stage stage)  {
@@ -24,11 +31,17 @@ public class Ui extends Application{
         
         audio = new Audio();
         browser = new Browser();
+        noteDAO = new NoteDAO();
         pane = new BorderPane();
         
-        pane.setLeft(fileVBox());
-        pane.setCenter(noteTextArea());
-        pane.setBottom(playerButtons());
+        notes = new HashMap<>();
+        
+        VBox leftBox = fileVBox();
+        pane.setLeft(leftBox);
+        noteArea = noteTextArea();
+        pane.setCenter(noteArea);
+        HBox bottomBox = playerButtons();
+        pane.setBottom(bottomBox);
         
         Scene scene = new Scene(pane);
         
@@ -40,6 +53,33 @@ public class Ui extends Application{
         launch(Ui.class);
     }
     
+    
+    // TODO: save note to database, current saving is for testing
+    private void saveNote() {
+        noteDAO.saveNote(audio.getCurrentlyPlayingString(), noteText);
+    }
+    
+    private Button noteSaveButton() {
+        Button button = new Button("save note");
+        
+        button.setOnAction((event) ->   {
+            noteText = noteArea.getText();
+            saveNote();
+        });
+        
+        return button;
+    }
+    
+    
+    private void getNoteForSong(File file)   {
+        String songName = file.toString();
+        if (noteDAO.noteForSongExists(songName))   {
+            noteArea.setText(noteDAO.getSongNote(songName));
+        } else  {
+            noteArea.setText("");
+        }
+    }
+    
     // TODO: if a note exists for a song, this method
     // should retrive it from a yet-to-be-written class
     // and display it
@@ -48,8 +88,14 @@ public class Ui extends Application{
         return textArea;
     }
     
+    // creates the buttons to control playback
+    // TODO: volume, functionality for next and previous track,
+    // repeat
     private HBox playerButtons()    {
         HBox buttons = new HBox();
+        
+        buttons.getChildren().add(noteSaveButton());
+        
         buttons.getChildren().add(new Button("<<"));
         Button playButton = new Button("||");
         playButton.setOnAction((event) ->   {
@@ -85,6 +131,9 @@ public class Ui extends Application{
              // otherwise attempt to play file
              button.setOnAction((event) ->  {
                  browser.changeDirectoryOrPlay(file, audio);
+                 if (file.isFile()) {
+                    getNoteForSong(file);
+                 }
                  refreshFiles();
              });
              fileBox.getChildren().add(button);
