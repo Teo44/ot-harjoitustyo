@@ -6,3 +6,6 @@
 | 1.4. | 3    | Audio playback |
 | 2.4. | 2    | File browsing |
 | 2.4. | 1    | Tests, fixing file browser |
+| 6.4. | 1    | Made a GUI |
+| 7.4. | 2    | Working on the GUI |
+| 8.4. | 4    | Working on the GUI, general fixes |
