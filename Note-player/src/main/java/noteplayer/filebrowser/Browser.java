@@ -8,13 +8,16 @@ public class Browser {
     File currentDirectory;
     // "directory separator", "/" on unix and "\" on windows
     final private String DS;
+    final private String regexDS;
     
     public Browser() {
         currentDirectory = new File(".");
         if (System.getProperty("os.name").contains("Windows"))   {
             DS = "\\";
+            regexDS = "\\\\";
         } else  {
             DS = "/";
+            regexDS = "/";
         }
     }
     
@@ -28,7 +31,7 @@ public class Browser {
         if (curDir.equals("."))   {
             return false;
         }
-        String[] levels = curDir.split(DS);
+        String[] levels = curDir.split(regexDS);
         //System.out.println(levels[levels.length - 1]);
         String newDir = curDir.replace(DS + levels[levels.length - 1], "");
         //System.out.println(newDir);
@@ -88,7 +91,7 @@ public class Browser {
         String[] names = new String[files.length];
         for (int i = 0; i < files.length; i++)  {
             String name = files[i].toString();
-            String[] split = name.split(DS);
+            String[] split = name.split(regexDS);
             name = split[split.length - 1];
             if (name.length() > 20) {
                 name = name.substring(0, 19) + "...";

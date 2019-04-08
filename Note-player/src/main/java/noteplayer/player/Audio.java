@@ -11,12 +11,15 @@ public class Audio  {
     private Clip clip;
     private File audioFile;
     final private String DS;
+    final private String regexDS;
     
     public Audio()  {
         if (System.getProperty("os.name").contains("Windows"))   {
             DS = "\\";
+            regexDS = "\\\\";
         } else  {
             DS = "/";
+            regexDS = "/";
         }
     }
     
@@ -72,7 +75,7 @@ public class Audio  {
             return null;
         }
         String song = audioFile.toString();
-        String[] split = song.split("/");
+        String[] split = song.split(regexDS);
         return split[split.length - 1];
     }
     
