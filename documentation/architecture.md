@@ -1,1 +1,1 @@
-<img src="https://raw.githubusercontent.com/Teo44/ot-harjoitustyo/master/documentation/class_digram.png">
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/class_diagram.png">
