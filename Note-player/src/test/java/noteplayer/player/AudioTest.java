@@ -1,5 +1,6 @@
 package noteplayer.player;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -58,4 +59,22 @@ public class AudioTest {
         audio.play("non-existant file");
         assertFalse(audio.isPlaying());
     }
+    
+    @Test
+    public void playingWhenGivenAFileWorks()    {
+        File testFile = new File("./test_audio/ukulele.wav");
+        audio.play(testFile);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {}
+        assertTrue(audio.isPlaying());
+    }
+    
+    @Test
+    public void givingANonValidFile()   {
+        File testFile = new File("./test_audio/test_folder/test.file");
+        audio.play(testFile);
+        assertFalse(audio.isPlaying());
+    }
+    
 }
