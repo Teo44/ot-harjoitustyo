@@ -89,7 +89,11 @@ public class Browser {
         for (int i = 0; i < files.length; i++)  {
             String name = files[i].toString();
             String[] split = name.split(DS);
-            names[i] = split[split.length - 1];
+            name = split[split.length - 1];
+            if (name.length() > 20) {
+                name = name.substring(0, 19) + "...";
+            }
+            names[i] = name;
         }
         return names;
     }
