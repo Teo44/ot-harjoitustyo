@@ -6,12 +6,18 @@ Currently, the only functions of Note-player are playing back .wav files and lim
 
 [Specifications](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/specifications.md)
 
-[Work hours](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/work_hours.md)
+[Work hours](https://github.com/Teo44/ot-harjoitusotyo/blob/master/documentation/work_hours.md)
+
+[Architecture](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/architecture.md)
 
 ## Usage
 
-After cloning the repository, the application can currently be ran with 
+After cloning the repository, the GUI can be ran with
+```
+mvn compile exec:java -Dexec.mainClass=noteplayer.ui.Ui
+```
 
+There is also a command-line interface for testing
 ```
 mvn compile exec:java -Dexec.mainClass=noteplayer.player.Main
 ```
@@ -48,6 +54,8 @@ quit
 
 ## Tests
 
+Note that some tests dont currently pass on Windows due to filepaths differing from Unix systems.
+
 Running tests
 
 ```
@@ -58,3 +66,4 @@ Generating a test coverage report
 
 ```
 mvn test jacoco:report
+```
