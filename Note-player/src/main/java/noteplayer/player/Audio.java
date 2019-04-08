@@ -13,7 +13,7 @@ public class Audio  {
     final private String DS;
     
     public Audio()  {
-        if (System.getProperty("os.name").equals("Windows"))   {
+        if (System.getProperty("os.name").contains("Windows"))   {
             DS = "\\";
         } else  {
             DS = "/";

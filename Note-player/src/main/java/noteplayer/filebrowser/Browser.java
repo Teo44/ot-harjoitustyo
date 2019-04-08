@@ -7,11 +7,11 @@ public class Browser {
     
     File currentDirectory;
     // "directory separator", "/" on unix and "\" on windows
-    final String DS;
+    final private String DS;
     
     public Browser() {
         currentDirectory = new File(".");
-        if (System.getProperty("os.name").equals("Windows"))   {
+        if (System.getProperty("os.name").contains("Windows"))   {
             DS = "\\";
         } else  {
             DS = "/";

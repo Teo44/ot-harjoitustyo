@@ -13,7 +13,7 @@ public class BrowserTest {
     @BeforeClass
     public static void createBrowser()  {
         browser = new Browser();
-        if (System.getProperty("os.name").equals("Windows"))   {
+        if (System.getProperty("os.name").contains("Windows"))   {
             DS = "\\";
         } else  {
             DS = "/";
