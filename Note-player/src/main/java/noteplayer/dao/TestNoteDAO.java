@@ -2,11 +2,11 @@ package noteplayer.dao;
 
 import java.util.HashMap;
 
-public class NoteDAO {
+public class TestNoteDAO {
     
     HashMap<String, String> notes;
     
-    public NoteDAO()    {
+    public TestNoteDAO()    {
         
         notes = new HashMap<>();
         

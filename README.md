@@ -17,14 +17,14 @@ After cloning the repository, the GUI can be ran with
 mvn compile exec:java -Dexec.mainClass=noteplayer.ui.Ui
 ```
 
-There is also a command-line interface for testing
+There is also a command-line interface for testing purposes
 ```
 mvn compile exec:java -Dexec.mainClass=noteplayer.player.Main
 ```
 
 Entering a filepath to a .wav file will play the file.
 
-For testing purposes, two royalty-free tracks have been included in the repository:
+Two royalty-free tracks have been included in the repository for testing:
 
 ```
 test_audio/ukulele.wav
@@ -64,4 +64,9 @@ Generating a test coverage report
 
 ```
 mvn test jacoco:report
+```
+
+Checkstyle
+```
+mvn jxr:jxr checkstyle:checkstyle
 ```
