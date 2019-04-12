@@ -7,11 +7,11 @@ import org.junit.Test;
 
 public class NoteDAOTest {
     
-    static NoteDAO noteDAO;
+    static TestNoteDAO noteDAO;
     
     @BeforeClass
     public static void createAudio()    {
-        noteDAO = new NoteDAO();
+        noteDAO = new TestNoteDAO();
     }
     
     @Test

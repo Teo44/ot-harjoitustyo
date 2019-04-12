@@ -1,30 +1,92 @@
 package noteplayer.dao;
 
 import java.util.HashMap;
+import java.sql.*;
 
 public class NoteDAO {
     
-    HashMap<String, String> notes;
+    String currentNote;
     
-    public NoteDAO()    {
+    public NoteDAO()   {
         
-        notes = new HashMap<>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./notes", "sa", "");
+            PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Notes (\n"
+                    + "id INTEGER PRIMARY KEY,\n"
+                    + "songname varchar(144),\n"
+                    + "note varchar(1440)\n"
+                    + ");");
+            statement.execute();
+
+            statement.close();
+            connection.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
         
     }
     
     public String getSongNote(String song)  {
-        return notes.getOrDefault(song, "");
+        String note = "";
+        try {
+            Connection con = openConnection();
+            String getNote = "SELECT Notes.note FROM Notes WHERE"
+                    + " Notes.songname = ?";
+            PreparedStatement stmt = con.prepareStatement(getNote);
+            stmt.setString(1, song);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                note = res.getString("note");
+            }
+            con.close();
+        }
+        catch(Exception e)  {}
+        return note;
+    }
+    
+    private Connection openConnection() throws Exception{
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:./notes", "sa", "");
+        return connection;
     }
     
     public boolean noteForSongExists(String song)    {
-        return notes.containsKey(song);
+        return false;
     }
     
-    public void saveNote(String currentSong, String noteText) {
+    public void saveNote(String currentSong, String noteText){
         if (currentSong == null)    {
             return;
         }
-        notes.put(currentSong, noteText);
+        try {
+            Connection con = openConnection();
+            // Check if a note for the song already exists
+            PreparedStatement check = con.prepareStatement("SELECT * FROM NOTES "
+                    + "WHERE Notes.songname = ?;");
+            check.setString(1, currentSong);
+            ResultSet res = check.executeQuery();
+            // Delete possible existing note
+            if (res.next()) {
+                String deleteStmt = "DELETE FROM Notes WHERE Note.songname = ?;";
+                PreparedStatement delete = con.prepareStatement(deleteStmt);
+                delete.execute();
+                delete.close();
+            }
+            check.close();
+            res.close();
+
+            // Create new note
+            String insertStmt = "INSERT INTO Notes (songname, note) VALUES (?, ?)";
+            PreparedStatement insert = con.prepareStatement(insertStmt);
+            insert.setString(1, currentSong);
+            insert.setString(2, noteText);
+            insert.execute();
+            insert.close();
+            con.close();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
     
 }

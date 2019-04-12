@@ -28,7 +28,7 @@ public class Ui extends Application{
     HashMap<String, String> notes;
     
     @Override
-    public void start(Stage stage)  {
+    public void start(Stage stage) {
         stage.setTitle("Note-player");
         
         audio = new Audio();
@@ -66,7 +66,7 @@ public class Ui extends Application{
     }
     
     // TODO: save note to database, current saving is for testing
-    private void saveNote() {
+    private void saveNote(){
         noteDAO.saveNote(audio.getCurrentlyPlayingString(), noteText);
     }
     
@@ -84,11 +84,13 @@ public class Ui extends Application{
     
     private void getNoteForSong(File file)   {
         String songName = file.toString();
-        if (noteDAO.noteForSongExists(songName))   {
-            noteArea.setText(noteDAO.getSongNote(songName));
-        } else  {
-            noteArea.setText("");
-        }
+        String note = noteDAO.getSongNote(songName);
+        noteArea.setText(note);
+//        if (noteDAO.noteForSongExists(songName))   {
+//            noteArea.setText(noteDAO.getSongNote(songName));
+//        } else  {
+//            noteArea.setText("");
+//        }
     }
     
     // TODO: if a note exists for a song, this method
