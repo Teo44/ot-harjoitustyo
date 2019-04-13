@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -44,9 +45,12 @@ public class Ui extends Application{
         pane.setLeft(leftBox);
         noteArea = noteTextArea();
         pane.setCenter(noteArea);
-        HBox bottomBox = playerButtons();
-        bottomBox.getChildren().add(currentlyPlaying);
-        pane.setBottom(bottomBox);
+        HBox player = new HBox();
+        player = saveButton(player);
+        player = playerButtons(player);
+        player.getChildren().add(new Label("Currently playing: "));
+        player.getChildren().add(currentlyPlaying);
+        pane.setTop(player);
         
         Scene scene = new Scene(pane);
         
@@ -117,6 +121,24 @@ public class Ui extends Application{
         buttons.getChildren().add(playButton);
         buttons.getChildren().add(new Button(">>"));
         return buttons;
+    }
+    
+    // like above, but adds the buttons to an existing HBox
+    private HBox playerButtons(HBox hbox)   {
+        
+        hbox.getChildren().add(new Button("<<"));
+        Button playButton = new Button("||");
+        playButton.setOnAction((event) ->   {
+            audio.togglePause();
+        });
+        hbox.getChildren().add(playButton);
+        hbox.getChildren().add(new Button(">>"));
+        return hbox;
+    }
+    
+    private HBox saveButton(HBox hbox)    {
+        hbox.getChildren().add(noteSaveButton());
+        return hbox;
     }
     
     private void refreshFiles() {
