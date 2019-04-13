@@ -4,13 +4,14 @@ import java.sql.*;
 
 public class SettingsDAO {
     
-    public SettingsDAO(Integer fontSize)   {
+    public SettingsDAO(Integer fontSize, Integer theme)   {
         
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:./notes", "sa", "");
             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Settings (\n"
                     + "id INTEGER PRIMARY KEY,\n"
-                    + "fontSize INTEGER\n"
+                    + "fontSize INTEGER,\n"
+                    + "theme INTEGER\n"
                     + ");");
             statement.execute();
             
@@ -21,9 +22,10 @@ public class SettingsDAO {
             
             if (!(res.next()))   {
                 PreparedStatement defaultSettings = connection.prepareStatement("INSERT INTO Settings ("
-                        + "id, fontSize) VALUES (?, ?)");
+                        + "id, fontSize, theme) VALUES (?, ?, ?)");
                 defaultSettings.setInt(1, 1);
                 defaultSettings.setInt(2, fontSize);
+                defaultSettings.setInt(3, theme);
                 defaultSettings.execute();
                 defaultSettings.close();
             }
@@ -38,6 +40,40 @@ public class SettingsDAO {
             System.out.println(e);
         }
         
+    }
+    
+    public int getTheme(int defaultValue)    {
+        int fontSize = defaultValue;
+        try {
+            Connection con = openConnection();
+            PreparedStatement getStmt = con.prepareStatement("SELECT * FROM Settings "
+                    + "WHERE Settings.id = 1;");
+            ResultSet res = getStmt.executeQuery();
+            if (res.next()) {
+                fontSize = res.getInt("theme");
+            }
+            res.close();
+            getStmt.close();
+            con.close();
+            
+        } catch (Exception e)   {}
+        return fontSize;
+    }
+    
+    public void setTheme(int value)   {
+        try {
+            Connection con = openConnection();
+            PreparedStatement setStmt = con.prepareStatement("UPDATE Settings "
+                    + "SET theme = ? "
+                    + "WHERE Settings.id = 1;");
+            setStmt.setInt(1, value);
+            setStmt.execute();
+            setStmt.close();
+            con.close();
+            
+        } catch (Exception e)   {
+            System.out.println(e);
+        }
     }
     
     public void setFontSize(int fontSize)   {
@@ -56,8 +92,8 @@ public class SettingsDAO {
         }
     }
     
-    public int getFontSize()    {
-        int fontSize = 14;
+    public int getFontSize(int defaultValue)    {
+        int fontSize = defaultValue;
         try {
             Connection con = openConnection();
             PreparedStatement getStmt = con.prepareStatement("SELECT * FROM Settings "

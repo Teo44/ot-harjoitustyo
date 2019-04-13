@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -29,9 +30,17 @@ public class Ui extends Application{
     BorderPane pane;
     TextArea noteArea;
     String noteText;
-    TextField currentlyPlaying;
+    Label currentlyPlaying;
+    Label cp;
+    Label fs;
+    Scene scene;
+    
+    Button styleButton;
+    Button smaller;
+    Button bigger;
     
     Integer fontSize;
+    Integer theme;
     
     HashMap<String, String> notes;
     
@@ -39,18 +48,22 @@ public class Ui extends Application{
     public void start(Stage stage) {
         stage.setTitle("Note-player");
         
+        // default values, used when no settings are found
         fontSize = 14;
+        theme = 1;
         
         audio = new Audio();
         browser = new Browser();
         noteDAO = new NoteDAO();
-        settingsDAO = new SettingsDAO(fontSize);
+        settingsDAO = new SettingsDAO(fontSize, theme);
         pane = new BorderPane();
         
-        // get possible saved font size from database
-        fontSize = settingsDAO.getFontSize();
+        // get possible saved settings from database
+        fontSize = settingsDAO.getFontSize(fontSize);
+        theme = settingsDAO.getTheme(theme);
         
-        currentlyPlaying = new TextField("");
+        currentlyPlaying = new Label("---");
+        currentlyPlaying.setPadding(new Insets(5, 5, 0, 0));
         notes = new HashMap<>();
         
         //TODO: a better layout, as in specifications
@@ -62,17 +75,24 @@ public class Ui extends Application{
         HBox player = new HBox();
         player = saveButton(player);
         player = playerButtons(player);
-        Label cp = new Label("Currently playing: ");
+        cp = new Label("Currently playing: ");
         cp.setPadding(new Insets(5, 0, 0, 0));
         player.getChildren().add(cp);
         player.getChildren().add(currentlyPlaying);
-        Label fs = new Label("Font size: ");
+        fs = new Label("Font size: ");
         fs.setPadding(new Insets(5, 0, 0, 0));
         player.getChildren().add(fs);
         player = fontSizeButtons(player);
+        styleButton = styleButton();
+        player.getChildren().add(styleButton);
+        
         pane.setTop(player);
         
-        Scene scene = new Scene(pane);
+        scene = new Scene(pane);
+        
+        if (theme == 2) {
+            setStyleDark();
+        }
         
         stage.setScene(scene);
         stage.show();
@@ -80,6 +100,7 @@ public class Ui extends Application{
         // saving settings on exit
         stage.setOnCloseRequest((WindowEvent event1) -> {
             settingsDAO.setFontSize(fontSize);
+            settingsDAO.setTheme(theme);
         });
     }
     
@@ -92,6 +113,35 @@ public class Ui extends Application{
             return;
         }
         currentlyPlaying.setText(audio.getCurrentlyPlayingFormattedString());
+    }
+    
+    private void setStyleLight()    {
+          scene.getStylesheets().clear();
+    }
+    
+    private void setStyleDark() {
+          scene.getStylesheets().add("stylesheet.css");
+    }
+    
+    private Button styleButton()    {
+        styleButton = new Button();
+        if (theme == 1) {
+            styleButton.setText("Dark theme");
+        } else if (theme == 2)  {
+            styleButton.setText("Light theme");
+        }
+        styleButton.setOnAction((event) ->   {
+            if (theme == 1) {
+                theme = 2;
+                setStyleDark();
+                styleButton.setText("Light theme");
+            } else if (theme == 2)  {
+                theme = 1;
+                setStyleLight();
+                styleButton.setText("Dark theme");
+            }
+        });
+        return styleButton;
     }
     
     // TODO: save note to database, current saving is for testing
@@ -111,8 +161,8 @@ public class Ui extends Application{
     }
     
     private HBox fontSizeButtons(HBox hbox) {
-        Button smaller = new Button("-");
-        Button bigger = new Button("+");
+        smaller = new Button("-");
+        bigger = new Button("+");
         bigger.setOnAction((event) ->  {
             fontSizeUp();
         });
@@ -140,11 +190,6 @@ public class Ui extends Application{
         String songName = file.toString();
         String note = noteDAO.getSongNote(songName);
         noteArea.setText(note);
-//        if (noteDAO.noteForSongExists(songName))   {
-//            noteArea.setText(noteDAO.getSongNote(songName));
-//        } else  {
-//            noteArea.setText("");
-//        }
     }
     
     // TODO: if a note exists for a song, this method
