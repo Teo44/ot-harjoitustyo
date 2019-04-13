@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import noteplayer.dao.NoteDAO;
 import noteplayer.player.Audio;
@@ -26,6 +27,8 @@ public class Ui extends Application{
     String noteText;
     TextField currentlyPlaying;
     
+    Integer fontSize;
+    
     HashMap<String, String> notes;
     
     @Override
@@ -36,6 +39,7 @@ public class Ui extends Application{
         browser = new Browser();
         noteDAO = new NoteDAO();
         pane = new BorderPane();
+        fontSize = 14;
         
         currentlyPlaying = new TextField("");
         notes = new HashMap<>();
@@ -44,12 +48,15 @@ public class Ui extends Application{
         VBox leftBox = fileVBox();
         pane.setLeft(leftBox);
         noteArea = noteTextArea();
+        noteArea.setFont(Font.font("", fontSize));
         pane.setCenter(noteArea);
         HBox player = new HBox();
         player = saveButton(player);
         player = playerButtons(player);
         player.getChildren().add(new Label("Currently playing: "));
         player.getChildren().add(currentlyPlaying);
+        player.getChildren().add(new Label("Font size: "));
+        player = fontSizeButtons(player);
         pane.setTop(player);
         
         Scene scene = new Scene(pane);
@@ -85,6 +92,29 @@ public class Ui extends Application{
         return button;
     }
     
+    private HBox fontSizeButtons(HBox hbox) {
+        Button smaller = new Button("-");
+        Button bigger = new Button("+");
+        bigger.setOnAction((event) ->  {
+            fontSizeUp();
+        });
+        smaller.setOnAction((event) ->  {
+           fontSizeDown(); 
+        });
+        
+        hbox.getChildren().addAll(smaller, bigger);
+        return hbox;
+    }
+    
+    private void fontSizeDown() {
+        fontSize--;
+        noteArea.setFont(Font.font("", fontSize));
+    }
+    
+    private void fontSizeUp()   {
+        fontSize++;
+        noteArea.setFont(Font.font("", fontSize));
+    }
     
     private void getNoteForSong(File file)   {
         String songName = file.toString();

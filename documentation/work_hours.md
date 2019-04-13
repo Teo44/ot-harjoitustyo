@@ -10,4 +10,5 @@
 | 7.4. | 2    | Working on the GUI |
 | 8.4. | 4    | Working on the GUI, general fixes |
 | 9.4. | 1    | Misc. fixes |
-| ---  | 17   | | 
+| 12.4.| 1	  | Added sqlite |
+| ---  | 18   | | 
