@@ -3,6 +3,7 @@ package noteplayer.ui;
 import java.io.File;
 import java.util.HashMap;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +14,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import noteplayer.dao.NoteDAO;
+import noteplayer.dao.SettingsDAO;
 import noteplayer.player.Audio;
 import noteplayer.filebrowser.Browser;
 
@@ -22,6 +25,7 @@ public class Ui extends Application{
     Audio audio;
     Browser browser;
     NoteDAO noteDAO;
+    SettingsDAO settingsDAO;
     BorderPane pane;
     TextArea noteArea;
     String noteText;
@@ -35,11 +39,16 @@ public class Ui extends Application{
     public void start(Stage stage) {
         stage.setTitle("Note-player");
         
+        fontSize = 14;
+        
         audio = new Audio();
         browser = new Browser();
         noteDAO = new NoteDAO();
+        settingsDAO = new SettingsDAO(fontSize);
         pane = new BorderPane();
-        fontSize = 14;
+        
+        // get possible saved font size from database
+        fontSize = settingsDAO.getFontSize();
         
         currentlyPlaying = new TextField("");
         notes = new HashMap<>();
@@ -53,9 +62,13 @@ public class Ui extends Application{
         HBox player = new HBox();
         player = saveButton(player);
         player = playerButtons(player);
-        player.getChildren().add(new Label("Currently playing: "));
+        Label cp = new Label("Currently playing: ");
+        cp.setPadding(new Insets(5, 0, 0, 0));
+        player.getChildren().add(cp);
         player.getChildren().add(currentlyPlaying);
-        player.getChildren().add(new Label("Font size: "));
+        Label fs = new Label("Font size: ");
+        fs.setPadding(new Insets(5, 0, 0, 0));
+        player.getChildren().add(fs);
         player = fontSizeButtons(player);
         pane.setTop(player);
         
@@ -63,6 +76,11 @@ public class Ui extends Application{
         
         stage.setScene(scene);
         stage.show();
+        
+        // saving settings on exit
+        stage.setOnCloseRequest((WindowEvent event1) -> {
+            settingsDAO.setFontSize(fontSize);
+        });
     }
     
     public static void main(String[] args)  {
@@ -109,11 +127,13 @@ public class Ui extends Application{
     private void fontSizeDown() {
         fontSize--;
         noteArea.setFont(Font.font("", fontSize));
+        //settingsDAO.setFontSize(fontSize);
     }
     
     private void fontSizeUp()   {
         fontSize++;
         noteArea.setFont(Font.font("", fontSize));
+        //settingsDAO.setFontSize(fontSize);
     }
     
     private void getNoteForSong(File file)   {

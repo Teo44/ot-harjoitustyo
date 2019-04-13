@@ -1,6 +1,5 @@
 package noteplayer.dao;
 
-import java.util.HashMap;
 import java.sql.*;
 
 public class NoteDAO {
