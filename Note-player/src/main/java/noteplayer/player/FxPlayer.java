@@ -11,9 +11,10 @@ public class FxPlayer {
     
     final private String DS;
     final private String regexDS;
-    Media media;
-    MediaPlayer mediaPlayer;
-    String currentlyPlaying;
+    private Media media;
+    private MediaPlayer mediaPlayer;
+    private String currentlyPlaying;
+    private Boolean isPlaying;
     
     
     public FxPlayer()  {
@@ -24,6 +25,7 @@ public class FxPlayer {
             DS = "/";
             regexDS = "/";
         }
+        isPlaying = false;
     }
     
      public void play(String file, String curDir)  {
@@ -31,6 +33,7 @@ public class FxPlayer {
         // Stop any ongoing playback before starting the new one
         if (mediaPlayer != null)   {
             mediaPlayer.stop();
+            isPlaying = false;
         }
         
         try {
@@ -38,6 +41,7 @@ public class FxPlayer {
             currentlyPlaying = curDir + DS + file;
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
+            isPlaying = true;
         } catch (Exception e)   {
             System.out.print("Could not play file: ");
             System.out.println(e);
@@ -50,6 +54,7 @@ public class FxPlayer {
         // Stop any ongoing playback before starting the new one
         if (mediaPlayer != null)   {
             mediaPlayer.stop();
+            isPlaying = false;
         }
         
         try {
@@ -57,6 +62,7 @@ public class FxPlayer {
             currentlyPlaying = file.toURI().toString();
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
+            isPlaying = true;
         } catch (Exception e)   {
             System.out.print("Could not play file: ");
             System.out.println(e);
@@ -69,6 +75,7 @@ public class FxPlayer {
         // Stop any ongoing playback before starting the new one
         if (mediaPlayer != null)   {
             mediaPlayer.stop();
+            isPlaying = false;
         }
         
         try {
@@ -76,6 +83,7 @@ public class FxPlayer {
             currentlyPlaying = file;
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
+            isPlaying = true;
         } catch (Exception e)   {
             System.out.print("Could not play file: ");
             System.out.println(e);
@@ -117,7 +125,11 @@ public class FxPlayer {
     }
     
     public boolean isPlaying()  {
-        return mediaPlayer.getStatus().equals(Status.PLAYING); 
+        return isPlaying;
+//        if (mediaPlayer == null)    {
+//            return false;
+//        }
+//        return mediaPlayer.getStatus().equals(Status.PLAYING); 
     }
     
     public void togglePause()   {
@@ -126,8 +138,10 @@ public class FxPlayer {
         }
         if (mediaPlayer.getStatus().equals(Status.PLAYING))    {
             mediaPlayer.pause();
+            isPlaying = false;
         } else  {
             mediaPlayer.play();
+            isPlaying = true;
         }
     }
     
@@ -136,6 +150,7 @@ public class FxPlayer {
             return;
         }
         mediaPlayer.pause();
+        isPlaying = false;
     }
     
     public void unpausePlayback()   {
@@ -143,6 +158,7 @@ public class FxPlayer {
             return;
         }
         mediaPlayer.play();
+        isPlaying = true;
     }
     
     

@@ -5,15 +5,18 @@ import java.util.concurrent.TimeUnit;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 public class AudioTest {
     
-    static Audio audio;
+    static FxPlayer audio;
+    
+    @Rule public JavaFxThreadingRule javafxRule = new JavaFxThreadingRule();
     
     @BeforeClass
     public static void createAudio()    {
-        audio = new Audio();
+        audio = new FxPlayer();
     }
     
     @Test
