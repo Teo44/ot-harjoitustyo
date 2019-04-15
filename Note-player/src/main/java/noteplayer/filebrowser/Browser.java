@@ -1,7 +1,7 @@
 package noteplayer.filebrowser;
 
 import java.io.File;
-import noteplayer.player.Audio;
+import noteplayer.player.FxPlayer;
 
 public class Browser {
     
@@ -52,7 +52,7 @@ public class Browser {
         return false;
     }
     
-    public boolean changeDirectoryOrPlay(File f, Audio audio)   {
+    public boolean changeDirectoryOrPlay(File f, FxPlayer audio)   {
         if (f.isDirectory())    {
             String s = f.toString();
             if (s.equals("."))  {

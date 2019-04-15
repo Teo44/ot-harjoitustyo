@@ -8,11 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -20,10 +18,12 @@ import noteplayer.dao.NoteDAO;
 import noteplayer.dao.SettingsDAO;
 import noteplayer.player.Audio;
 import noteplayer.filebrowser.Browser;
+import noteplayer.player.FxPlayer;
 
 public class Ui extends Application{
     
-    Audio audio;
+    //Audio audio;
+    FxPlayer audio;
     Browser browser;
     NoteDAO noteDAO;
     SettingsDAO settingsDAO;
@@ -52,7 +52,8 @@ public class Ui extends Application{
         fontSize = 14;
         theme = 1;
         
-        audio = new Audio();
+        //audio = new Audio();
+        audio = new FxPlayer();
         browser = new Browser();
         noteDAO = new NoteDAO();
         settingsDAO = new SettingsDAO(fontSize, theme);
@@ -207,21 +208,29 @@ public class Ui extends Application{
         HBox buttons = new HBox();
         
         buttons.getChildren().add(noteSaveButton());
-        
-        buttons.getChildren().add(new Button("<<"));
+        Button prevButton = new Button("<<");
+        prevButton.setOnAction((event) ->   {
+            audio.prev();
+        });
+        buttons.getChildren().add(prevButton);
         Button playButton = new Button("||");
         playButton.setOnAction((event) ->   {
             audio.togglePause();
         });
         buttons.getChildren().add(playButton);
-        buttons.getChildren().add(new Button(">>"));
+        Button nextButton = new Button(">>");
+        buttons.getChildren().add(nextButton);
         return buttons;
     }
     
     // like above, but adds the buttons to an existing HBox
     private HBox playerButtons(HBox hbox)   {
         
-        hbox.getChildren().add(new Button("<<"));
+        Button prevButton = new Button("<<");
+        prevButton.setOnAction((event) ->   {
+            audio.prev();
+        });
+        hbox.getChildren().add(prevButton);
         Button playButton = new Button("||");
         playButton.setOnAction((event) ->   {
             audio.togglePause();
@@ -271,6 +280,7 @@ public class Ui extends Application{
              });
              fileBox.getChildren().add(button);
         }
+        fileBox.setPadding(new Insets(10, 0, 0, 0));
         return fileBox;
     }
     

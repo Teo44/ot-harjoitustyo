@@ -66,8 +66,9 @@ public class NoteDAO {
             ResultSet res = check.executeQuery();
             // Delete possible existing note
             if (res.next()) {
-                String deleteStmt = "DELETE FROM Notes WHERE Note.songname = ?;";
+                String deleteStmt = "DELETE FROM Notes WHERE Notes.songname = ?;";
                 PreparedStatement delete = con.prepareStatement(deleteStmt);
+                delete.setString(1, currentSong);
                 delete.execute();
                 delete.close();
             }
