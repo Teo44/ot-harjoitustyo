@@ -5,11 +5,12 @@ import java.sql.*;
 public class NoteDAO {
     
     String currentNote;
+    String db;
     
-    public NoteDAO()   {
-        
+    public NoteDAO(String db)   {
+        this.db = db;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./notes", "sa", "");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./" + db, "sa", "");
             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Notes (\n"
                     + "id INTEGER PRIMARY KEY,\n"
                     + "songname varchar(144),\n"
@@ -45,7 +46,7 @@ public class NoteDAO {
     }
     
     private Connection openConnection() throws Exception{
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./notes", "sa", "");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:./"+db, "sa", "");
         return connection;
     }
     

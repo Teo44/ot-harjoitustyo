@@ -4,10 +4,12 @@ import java.sql.*;
 
 public class SettingsDAO {
     
-    public SettingsDAO(Integer fontSize, Integer theme)   {
-        
+    private String db;
+    
+    public SettingsDAO(Integer fontSize, Integer theme, String db)   {
+        this.db = db;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./notes", "sa", "");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./"+db, "sa", "");
             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Settings (\n"
                     + "id INTEGER PRIMARY KEY,\n"
                     + "fontSize INTEGER,\n"
@@ -111,7 +113,7 @@ public class SettingsDAO {
     }
     
     private Connection openConnection() throws Exception    {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./notes", "sa", "");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:./"+db, "sa", "");
         return connection;
     }
     

@@ -30,6 +30,15 @@ public class AudioTest {
     }
     
     @Test
+    public void audioIsPlayed2()    {
+        audio.play("ukulele.wav", "./test_audio");
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {}
+        assertTrue(audio.isPlaying());
+    }
+    
+    @Test
     public void audioCanBePaused()  {
         audio.play("test_audio/ukulele.wav");
         try {
@@ -77,6 +86,18 @@ public class AudioTest {
     public void givingANonValidFile()   {
         File testFile = new File("./test_audio/test_folder/test.file");
         audio.play(testFile);
+        assertFalse(audio.isPlaying());
+    }
+    
+    @Test
+    public void givingANonExistantFile()  {
+        audio.play("some song");
+        assertFalse(audio.isPlaying());
+    }
+    
+    @Test
+    public void givingANonExistantFile2()  {
+        audio.play("some song", "./some_directory");
         assertFalse(audio.isPlaying());
     }
     

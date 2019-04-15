@@ -55,8 +55,8 @@ public class Ui extends Application{
         //audio = new Audio();
         audio = new FxPlayer();
         browser = new Browser();
-        noteDAO = new NoteDAO();
-        settingsDAO = new SettingsDAO(fontSize, theme);
+        noteDAO = new NoteDAO("notes");
+        settingsDAO = new SettingsDAO(fontSize, theme, "notes");
         pane = new BorderPane();
         
         // get possible saved settings from database
