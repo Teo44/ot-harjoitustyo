@@ -2,21 +2,26 @@ package noteplayer.ui;
 
 import java.io.File;
 import java.util.HashMap;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import noteplayer.dao.NoteDAO;
 import noteplayer.dao.SettingsDAO;
-import noteplayer.player.Audio;
 import noteplayer.filebrowser.Browser;
 import noteplayer.player.FxPlayer;
 
@@ -34,13 +39,19 @@ public class Ui extends Application{
     Label cp;
     Label fs;
     Scene scene;
+    TextField autoScrollSpeedField;
+    
+    Animation autoScroll;
+    boolean autoScrolling;
     
     Button styleButton;
     Button smaller;
     Button bigger;
+    Button autoScrollToggle;
     
     Integer fontSize;
     Integer theme;
+    Integer scrollSpeed;
     
     HashMap<String, String> notes;
     
@@ -74,6 +85,10 @@ public class Ui extends Application{
         noteArea.setFont(Font.font("", fontSize));
         pane.setCenter(noteArea);
         
+        // creating default autoscroll animation
+        autoScrollSetSpeed(60);
+        
+        // creating the top bar
         HBox player = new HBox();
         player = saveButton(player);
         player = playerButtons(player);
@@ -86,8 +101,10 @@ public class Ui extends Application{
         player = fontSizeButtons(player);
         styleButton = styleButton();
         player.getChildren().add(styleButton);
+        player.getChildren().add(autoScrollSpeedControl());
+        player.getChildren().add(autoScrollControls());
         
-        player.setSpacing(30);
+        player.setSpacing(15);
         
         pane.setTop(player);
         
@@ -96,6 +113,8 @@ public class Ui extends Application{
         if (theme == 2) {
             setStyleDark();
         }
+        
+
         
         stage.setScene(scene);
         stage.show();
@@ -130,7 +149,63 @@ public class Ui extends Application{
           scene.getStylesheets().add("stylesheet.css");
     }
     
+    private void autoScrollSetSpeed(int speed) {
+        scrollSpeed = speed;
+    autoScroll = new Timeline(
+        new KeyFrame(Duration.seconds(speed),
+            new KeyValue(noteArea.scrollTopProperty(), 
+                    noteArea.getText().split("\n").length * 1.1 * fontSize)));
+    autoScroll.setOnFinished(e -> autoScrollStop());
+    }
     
+    private void autoScrollStop()   {
+        autoScroll.stop();
+        autoScrolling = false;
+        autoScrollToggle.setText("Start autoscroll");
+    }
+    
+    private void autoScrollToggle()  {
+        if (autoScrolling)  {
+            autoScroll.stop();
+            autoScrolling = false;
+            autoScrollToggle.setText("Start autoscroll");
+        } else  {
+            noteArea.setScrollTop(0);
+            autoScrollSetSpeed(scrollSpeed);
+            autoScroll.play();
+            autoScrollToggle.setText("Stop autoscroll");
+            autoScrolling = true;
+        }
+    }
+    
+    private HBox autoScrollSpeedControl()   {
+        HBox box = new HBox();
+        Label scrollSpeedLabel = new Label("Autoscroll duration: ");
+        scrollSpeedLabel.setPadding(new Insets(5, 0, 0, 0));
+        autoScrollSpeedField = new TextField(scrollSpeed.toString());
+        autoScrollSpeedField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String newSpeedString = newValue;
+            try {
+                Integer newSpeed = Integer.valueOf(newSpeedString);
+                autoScrollSetSpeed(newSpeed);
+            } catch (Exception e)   {
+            }
+        });
+        autoScrollSpeedField.setPrefWidth(52);
+        box.getChildren().add(scrollSpeedLabel);
+        box.getChildren().add(autoScrollSpeedField);
+        return box;
+    }
+    
+    private HBox autoScrollControls()   {
+        HBox box = new HBox();
+        autoScrollToggle = new Button("Start autoscroll");
+        autoScrollToggle.setOnAction((event) ->   {
+            autoScrollToggle();
+        });
+        box.getChildren().add(autoScrollToggle);
+        return box;
+    }
     
     private Button styleButton()    {
         styleButton = new Button();
@@ -171,8 +246,8 @@ public class Ui extends Application{
     
     private HBox fontSizeButtons(HBox hbox) {
         HBox hbox2 = new HBox();
-        fs = new Label("Font size: ");
-        fs.setPadding(new Insets(5, 0, 0, 0));
+        fs = new Label("Font size: " + fontSize);
+        fs.setPadding(new Insets(5, 5, 0, 0));
         hbox2.getChildren().add(fs);
         smaller = new Button("-");
         bigger = new Button("+");
@@ -191,13 +266,14 @@ public class Ui extends Application{
     private void fontSizeDown() {
         fontSize--;
         noteArea.setFont(Font.font("", fontSize));
-        //settingsDAO.setFontSize(fontSize);
+        fs.setText("Font size: " + fontSize);
     }
     
     private void fontSizeUp()   {
         fontSize++;
         noteArea.setFont(Font.font("", fontSize));
-        //settingsDAO.setFontSize(fontSize);
+        
+        fs.setText("Font size: " + fontSize);
     }
     
     private void getNoteForSong(File file)   {
