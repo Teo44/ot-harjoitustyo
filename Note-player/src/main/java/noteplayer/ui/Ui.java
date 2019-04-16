@@ -53,6 +53,8 @@ public class Ui extends Application{
     Integer theme;
     Integer scrollSpeed;
     
+    String currentlyPlayingFileName;
+    
     HashMap<String, String> notes;
     
     @Override
@@ -104,7 +106,7 @@ public class Ui extends Application{
         player.getChildren().add(autoScrollSpeedControl());
         player.getChildren().add(autoScrollControls());
         
-        player.setSpacing(15);
+        player.setSpacing(8);
         
         pane.setTop(player);
         
@@ -187,6 +189,7 @@ public class Ui extends Application{
             String newSpeedString = newValue;
             try {
                 Integer newSpeed = Integer.valueOf(newSpeedString);
+                //if ()
                 autoScrollSetSpeed(newSpeed);
             } catch (Exception e)   {
             }
@@ -228,9 +231,9 @@ public class Ui extends Application{
         return styleButton;
     }
     
-    // TODO: save note to database, current saving is for testing
     private void saveNote(){
-        noteDAO.saveNote(audio.getCurrentlyPlayingString(), noteText);
+        noteDAO.saveNoteAndScrollSpeed(audio.getCurrentlyPlayingString(), 
+                noteText, scrollSpeed);
     }
     
     private Button noteSaveButton() {
@@ -276,10 +279,16 @@ public class Ui extends Application{
         fs.setText("Font size: " + fontSize);
     }
     
-    private void getNoteForSong(File file)   {
+    private void updateForSong(File file)   {
         String songName = file.toString();
         String note = noteDAO.getSongNote(songName);
+        scrollSpeed = noteDAO.getSongScrollSpeed(songName, scrollSpeed);
         noteArea.setText(note);
+        if (noteArea.getText() != null) {
+            autoScrollSetSpeed(scrollSpeed);
+            autoScrollSpeedField.setText(scrollSpeed.toString());
+        }
+        currentlyPlayingFileName = songName;
     }
     
     // TODO: if a note exists for a song, this method
@@ -363,7 +372,7 @@ public class Ui extends Application{
              button.setOnAction((event) ->  {
                  browser.changeDirectoryOrPlay(file, audio);
                  if (file.isFile()) {
-                    getNoteForSong(file);
+                    updateForSong(file);
                     updateCurrentlyPlaying();
                  }
                  refreshFiles();

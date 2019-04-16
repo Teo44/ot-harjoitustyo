@@ -22,7 +22,7 @@ public class NoteDAOTest {
     
     @Test
     public void songWithoutNoteReturnsEmptyString()    {
-        assertEquals("", noteDAO.getSongNote("some song"));
+        assertEquals(" ", noteDAO.getSongNote("some song"));
     }
     
 
