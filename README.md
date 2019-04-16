@@ -10,6 +10,10 @@ Currently, the only functions of Note-player are playing back .wav files and lim
 
 [Architecture](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/architecture.md)
 
+## Required libraries
+
+The JavaFX mediaplayer used in the application can require additional libraries depending on the operating system and other factors. For Ubuntu, packages libavutil51, libavformat53 and libavcodec53 might be needed (untested). For Arch, ffmpeg-compat-55 is needed (tested).
+
 ## Usage
 
 After cloning the repository, the GUI can be ran with

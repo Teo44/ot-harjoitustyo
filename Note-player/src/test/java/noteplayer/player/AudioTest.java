@@ -11,17 +11,26 @@ import org.junit.Test;
 public class AudioTest {
     
     static FxPlayer audio;
+    static String DS;
+    static String regexDS;
     
     @Rule public JavaFxThreadingRule javafxRule = new JavaFxThreadingRule();
     
     @BeforeClass
     public static void createAudio()    {
         audio = new FxPlayer();
+        if (System.getProperty("os.name").contains("Windows"))   {
+            DS = "\\";
+            regexDS = "\\\\";
+        } else  {
+            DS = "/";
+            regexDS = "/";
+        }
     }
     
     @Test
     public void audioIsPlayed() {
-        audio.play("test_audio/ukulele.wav");
+        audio.play("test_audio"+DS+"ukulele.wav");
         // a delay is needed, as the file takes time to open
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -31,7 +40,7 @@ public class AudioTest {
     
     @Test
     public void audioIsPlayed2()    {
-        audio.play("ukulele.wav", "./test_audio");
+        audio.play("ukulele.wav", "test_audio");
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (Exception e) {}
@@ -40,7 +49,7 @@ public class AudioTest {
     
     @Test
     public void audioCanBePaused()  {
-        audio.play("test_audio/ukulele.wav");
+        audio.play("test_audio"+DS+"ukulele.wav");
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (Exception e) {}
@@ -50,7 +59,7 @@ public class AudioTest {
     
     @Test
     public void audioCanBeUnpaused()    {
-        audio.play("test_audio/ukulele.wav");
+        audio.play("test_audio"+DS+"ukulele.wav");
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (Exception e) {}
@@ -64,7 +73,7 @@ public class AudioTest {
     
     @Test
     public void openingNewFileStopsCurrentPlayback()    {
-        audio.play("test_audio/ukulele.wav");
+        audio.play("test_audio"+DS+"ukulele.wav");
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (Exception e) {}
@@ -74,7 +83,7 @@ public class AudioTest {
     
     @Test
     public void playingWhenGivenAFileWorks()    {
-        File testFile = new File("./test_audio/ukulele.wav");
+        File testFile = new File("test_audio"+DS+"ukulele.wav");
         audio.play(testFile);
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -84,7 +93,7 @@ public class AudioTest {
     
     @Test
     public void givingANonValidFile()   {
-        File testFile = new File("./test_audio/test_folder/test.file");
+        File testFile = new File("test_audio"+DS+"test_folder"+DS+"test.file");
         audio.play(testFile);
         assertFalse(audio.isPlaying());
     }
@@ -97,7 +106,7 @@ public class AudioTest {
     
     @Test
     public void givingANonExistantFile2()  {
-        audio.play("some song", "./some_directory");
+        audio.play("some song", "some_directory");
         assertFalse(audio.isPlaying());
     }
     
