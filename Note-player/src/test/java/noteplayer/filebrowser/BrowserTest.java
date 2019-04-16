@@ -1,5 +1,6 @@
 package noteplayer.filebrowser;
 
+import java.io.File;
 import java.util.Arrays;
 import static junit.framework.Assert.assertEquals;
 import org.junit.BeforeClass;
@@ -46,5 +47,22 @@ public class BrowserTest {
                 Arrays.toString(browser.listFilesString()));
         
     }
+    
+    @Test
+    public void formattedFileListingWorks() {
+        browser.changeDirectory("." + DS + "test_audio");
+        browser.changeDirectory("." + DS + "test_audio" + DS + "test_folder");
+        String[] files = browser.listFilesFormatted();
+        assertEquals("test.file", files[0]);
+    }
+    
+    @Test
+    public void fileListingWorks()  {
+        browser.changeDirectory("." + DS + "test_audio");
+        browser.changeDirectory("." + DS + "test_audio" + DS + "test_folder");
+        File[] files = browser.listFiles();
+        assertEquals("."+DS+"test_audio"+DS+"test_folder"+DS+"test.file", files[0].toString());
+    }
+    
     
 }
