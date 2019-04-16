@@ -28,7 +28,7 @@ public class FxPlayer {
         isPlaying = false;
     }
     
-     public void play(String file, String curDir)  {
+    public void play(String file, String curDir)  {
         
         // Stop any ongoing playback before starting the new one
         if (mediaPlayer != null)   {
@@ -101,11 +101,7 @@ public class FxPlayer {
     }
     
     public String getCurrentlyPlayingString()   {
-//        if (media == null)  {
-//            return null;
-//        }
-//        return media.toString();
-          return currentlyPlaying;
+        return currentlyPlaying;
     }
     
     public void prev()  {
@@ -126,10 +122,6 @@ public class FxPlayer {
     
     public boolean isPlaying()  {
         return isPlaying;
-//        if (mediaPlayer == null)    {
-//            return false;
-//        }
-//        return mediaPlayer.getStatus().equals(Status.PLAYING); 
     }
     
     public void togglePause()   {

@@ -130,6 +130,8 @@ public class Ui extends Application{
           scene.getStylesheets().add("stylesheet.css");
     }
     
+    
+    
     private Button styleButton()    {
         styleButton = new Button();
         if (theme == 1) {

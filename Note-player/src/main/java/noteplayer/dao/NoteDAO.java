@@ -20,8 +20,7 @@ public class NoteDAO {
 
             statement.close();
             connection.close();
-        }
-        catch(Exception e){
+        } catch (Exception e)  {
             System.out.println(e);
         }
         
@@ -40,13 +39,13 @@ public class NoteDAO {
                 note = res.getString("note");
             }
             con.close();
+        } catch (Exception e)  {   
         }
-        catch(Exception e)  {}
         return note;
     }
     
-    private Connection openConnection() throws Exception{
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./"+db, "sa", "");
+    private Connection openConnection() throws Exception    {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:./" + db, "sa", "");
         return connection;
     }
     
@@ -54,7 +53,7 @@ public class NoteDAO {
         return false;
     }
     
-    public void saveNote(String currentSong, String noteText){
+    public void saveNote(String currentSong, String noteText)   {
         if (currentSong == null)    {
             return;
         }
@@ -84,8 +83,7 @@ public class NoteDAO {
             insert.execute();
             insert.close();
             con.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

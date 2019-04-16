@@ -9,7 +9,7 @@ public class SettingsDAO {
     public SettingsDAO(Integer fontSize, Integer theme, String db)   {
         this.db = db;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./"+db, "sa", "");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./" + db, "sa", "");
             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Settings (\n"
                     + "id INTEGER PRIMARY KEY,\n"
                     + "fontSize INTEGER,\n"
@@ -37,8 +37,7 @@ public class SettingsDAO {
             defaultCheck.close();
             statement.close();
             connection.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         
@@ -58,7 +57,8 @@ public class SettingsDAO {
             getStmt.close();
             con.close();
             
-        } catch (Exception e)   {}
+        } catch (Exception e)   {   
+        }
         return fontSize;
     }
     
@@ -108,12 +108,13 @@ public class SettingsDAO {
             getStmt.close();
             con.close();
             
-        } catch (Exception e)   {}
+        } catch (Exception e)   {   
+        }
         return fontSize;
     }
     
     private Connection openConnection() throws Exception    {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./"+db, "sa", "");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:./" + db, "sa", "");
         return connection;
     }
     
