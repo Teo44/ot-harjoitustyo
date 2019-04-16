@@ -12,4 +12,7 @@
 | 9.4. | 1    | Misc. fixes |
 | 12.4.| 1	  | Added sqlite |
 | 13.4.| 5    | Adding new features |
-| ---  | 23   | | 
+| 14.4.| 1    | New tests |
+| 15.4 | 3    | New features and tests |
+| 16.4.| 5    | New features and fixes |
+| ---  | 32   | | 
