@@ -1,6 +1,10 @@
 # Note-player
 
-Currently, the only functions of Note-player are playing back .wav files and limited file browsing through a terminal. A GUI is in the works. See specifications for all the planned features.
+Currently, Note-player has a graphical file browser and audio player. Users can save notes related to certain songs, which will auto-load from a database when the song is played again. There is also adjustable auto-scrolling of notes, for chord-diagrams for an example.
+
+## Releases
+
+[v0.1-beta](https://github.com/Teo44/ot-harjoitustyo/releases/tag/v0.1.-beta)
 
 ## Documentation
 
@@ -12,18 +16,45 @@ Currently, the only functions of Note-player are playing back .wav files and lim
 
 ## Required libraries
 
-The JavaFX mediaplayer used in the application can require additional libraries depending on the operating system and other factors. For Ubuntu, packages libavutil51, libavformat53 and libavcodec53 might be needed (untested). For Arch, ffmpeg-compat-55 is needed (tested).
+The JavaFX mediaplayer used in the application might require additional libraries depending on the operating system. 
+
+### Windows
+
+Untested.
+
+### Ubuntu
+
+Packages libavutil51, libavformat53 and libavcodec53 might be needed (untested). 
+
+### OS X
+
+Seems to work out of the box.
+
+### Arch
+
+Aur-package ffmpeg-compat-55 is required.
+
+
 
 ## Usage
 
-### GUI
+### Generating jar-binary
+
+Run in the Note-player directory
+```
+mvn package
+```
+
+### Running from source
+
+#### GUI
 
 After cloning the repository, the GUI can be ran with
 ```
 mvn compile exec:java -Dexec.mainClass=noteplayer.ui.Ui
 ```
 
-### Command-line
+#### Command-line
 
 There is also a command-line interface for testing purposes
 ```
