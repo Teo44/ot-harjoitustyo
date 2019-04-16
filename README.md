@@ -16,10 +16,14 @@ The JavaFX mediaplayer used in the application can require additional libraries 
 
 ## Usage
 
+### GUI
+
 After cloning the repository, the GUI can be ran with
 ```
 mvn compile exec:java -Dexec.mainClass=noteplayer.ui.Ui
 ```
+
+### Command-line
 
 There is also a command-line interface for testing purposes
 ```
