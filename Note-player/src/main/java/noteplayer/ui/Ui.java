@@ -115,7 +115,11 @@ public class Ui extends Application{
         if (audio.getCurrentlyPlayingString() == null)  {
             return;
         }
-        currentlyPlaying.setText(audio.getCurrentlyPlayingFormattedString());
+        String playing = audio.getCurrentlyPlayingFormattedString();
+        if (playing.length() > 15)  {
+            playing = playing.substring(0, 14) + "...";
+        }
+        currentlyPlaying.setText(playing);
     }
     
     private void setStyleLight()    {
