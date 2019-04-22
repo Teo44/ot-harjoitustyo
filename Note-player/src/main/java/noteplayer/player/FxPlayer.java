@@ -140,21 +140,23 @@ public class FxPlayer {
         }
     }
     
-    public void toggleRepeat()  {
+    public boolean toggleRepeat()  {
         if (mediaPlayer == null)    {
-            return;
+            return false;
         }
         if (repeat) {
             mediaPlayer.setOnEndOfMedia(new Runnable()  {
                 public void run()    {
                 } 
             });
+            return false;
         } else  {
             mediaPlayer.setOnEndOfMedia(new Runnable()  {
                 public void run()    {
                     mediaPlayer.seek(Duration.ZERO);
                 } 
             });
+            return true;
         }
     }
     

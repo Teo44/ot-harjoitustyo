@@ -110,6 +110,8 @@ public class Ui extends Application{
         
         player.setSpacing(8);
         
+        player.setPadding(new Insets(0, 0, 10, 0));
+        
         pane.setTop(player);
         
         scene = new Scene(pane);
@@ -337,6 +339,15 @@ public class Ui extends Application{
         });
         hbox2.getChildren().add(playButton);
         hbox2.getChildren().add(new Button(">>"));
+        Button repeatButton = new Button("repeat on");
+        repeatButton.setOnAction((event) -> {
+            if (audio.toggleRepeat())   {
+                repeatButton.setText("repeat off");
+            } else  {
+                repeatButton.setText("repeat on");
+            }
+        });
+        hbox2.getChildren().add(repeatButton);
         hbox.getChildren().add(hbox2);
         return hbox;
     }
@@ -413,7 +424,7 @@ public class Ui extends Application{
              });
              list.getItems().add(button);
         }
-        box.setPadding(new Insets(10, 10, 0, 0));
+        box.setPadding(new Insets(0, 10, 0, 0));
         box.setSpacing(10);
         //list.setPadding(new Insets(0, 0, 0, 0));
         box.getChildren().add(list);
