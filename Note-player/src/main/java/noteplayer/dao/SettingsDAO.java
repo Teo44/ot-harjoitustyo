@@ -6,6 +6,14 @@ public class SettingsDAO {
     
     private String db;
     
+    /**
+     * Creates a database file if it doesn't exists.
+     * Also creates the Settings table if it doesn't exists.
+     * 
+     * @param fontSize The default font size, used only when the table is created. 
+     * @param theme The default theme, used only when the table is created.
+     * @param db The name of the database file.
+     */
     public SettingsDAO(Integer fontSize, Integer theme, String db)   {
         this.db = db;
         try {
@@ -43,6 +51,12 @@ public class SettingsDAO {
         
     }
     
+    /**
+     * Returns the saved theme from database, stored as an integer.
+     * 
+     * @param defaultValue This is returned if the database query fails.
+     * @return Theme as an integer.
+     */
     public int getTheme(int defaultValue)    {
         int fontSize = defaultValue;
         try {
@@ -62,6 +76,11 @@ public class SettingsDAO {
         return fontSize;
     }
     
+    /**
+     * Attempts to save the theme to the database.
+     * 
+     * @param value The theme.
+     */
     public void setTheme(int value)   {
         try {
             Connection con = openConnection();
@@ -78,6 +97,11 @@ public class SettingsDAO {
         }
     }
     
+    /**
+     * Attempts to save the font size to the database.
+     * 
+     * @param fontSize The font size.
+     */
     public void setFontSize(int fontSize)   {
         try {
             Connection con = openConnection();
@@ -94,6 +118,12 @@ public class SettingsDAO {
         }
     }
     
+    /**
+     * Attempts to get the font size from the database.
+     * 
+     * @param defaultValue This is returned if the query fails.
+     * @return The font size.
+     */
     public int getFontSize(int defaultValue)    {
         int fontSize = defaultValue;
         try {

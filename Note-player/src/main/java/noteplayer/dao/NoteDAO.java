@@ -7,6 +7,12 @@ public class NoteDAO {
     String currentNote;
     String db;
     
+    /**
+     * Constructor creates a database file if it doesn't exist.
+     * Also creates the Notes table if it doesn't exists.
+     * 
+     * @param db name of the database file 
+     */
     public NoteDAO(String db)   {
         this.db = db;
         try {
@@ -26,6 +32,15 @@ public class NoteDAO {
         
     }
     
+    /**
+     * Gets the note for a song from database, if it exists.
+     * 
+     * TODO: return value should be null when no note is found,
+     * but this breaks the application as of now.
+     * 
+     * @param song any identifier, e.g. song name or file path
+     * @return related note, or " " if no note is found.
+     */
     public String getSongNote(String song)  {
         String note = " ";
         try {
@@ -45,6 +60,14 @@ public class NoteDAO {
         return note;
     }
     
+    /**
+     * Gets the scroll speed for a song from database, if it exists.
+     * 
+     * @param song any identifier, e.g. song name or file path
+     * @param old the current scroll speed
+     * @return song's saved scroll speed, or the current one if there
+     * isn't one in the database
+     */
     public Integer getSongScrollSpeed(String song, Integer old)  {
         
         try {
@@ -69,10 +92,15 @@ public class NoteDAO {
         return connection;
     }
     
-    public boolean noteForSongExists(String song)    {
-        return false;
-    }
-    
+
+    /**
+     * Saves a song's note and scroll speed to the database. Any previous
+     * data for the song is overwritten.
+     * 
+     * @param currentSong any identifier, e.g. song name or file path
+     * @param note the song's note
+     * @param speed the song's scroll speed
+     */
     public void saveNoteAndScrollSpeed(String currentSong, String note, Integer speed)  {
         if (currentSong == null)    {
             return;
@@ -111,41 +139,4 @@ public class NoteDAO {
             System.out.println(e);
         }
     }
-    
-    public void saveNote(String currentSong, String noteText)   {
-        if (currentSong == null)    {
-            return;
-        }
-        try {
-            Connection con = openConnection();
-            // Check if a note for the song already exists
-            PreparedStatement check = con.prepareStatement("SELECT * FROM NOTES "
-                    + "WHERE Notes.songname = ?;");
-            check.setString(1, currentSong);
-            ResultSet res = check.executeQuery();
-            // Update an existing row
-            if (res.next()) {
-                String deleteStmt = "UPDATE Notes SET Notes.note = ? WHERE Notes.songname = ?;";
-                PreparedStatement delete = con.prepareStatement(deleteStmt);
-                delete.setString(1, noteText);
-                delete.setString(2, currentSong);
-                delete.execute();
-                delete.close();
-            } else  {
-                // Create new row
-                String insertStmt = "INSERT INTO Notes (songname, note) VALUES (?, ?)";
-                PreparedStatement insert = con.prepareStatement(insertStmt);
-                insert.setString(1, currentSong);
-                insert.setString(2, noteText);
-                insert.execute();
-                insert.close();
-                con.close();
-            }
-            check.close();
-            res.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-    
 }

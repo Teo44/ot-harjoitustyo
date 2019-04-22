@@ -10,6 +10,14 @@ public class Browser {
     final private String DS;
     final private String regexDS;
     
+    /**
+     * Sets the applications directory as the current directory.
+     * TODO: on windows this gets set to the root directory, 
+     * which is quite unideal
+     * 
+     * Sets the DS (directory separator) final variables depending
+     * on the OS, as Windows uses "\" and Unix "/"
+     */
     public Browser() {
         currentDirectory = new File(".");
         if (System.getProperty("os.name").contains("Windows"))   {
@@ -25,6 +33,12 @@ public class Browser {
         return currentDirectory.toString();
     }
     
+    /**
+     * Attempts to find the previous song in the current directory.
+     * If found, it is passed to the audio player.
+     * 
+     * @param player Dependency injection for playing back the file.
+     */
     public void previousSong(FxPlayer player)   {
         if (!(player.prev()))   {
             return;
@@ -36,6 +50,12 @@ public class Browser {
         player.play(next);
     }
     
+    /**
+     * Attempts to find the next song in the current directory.
+     * If found, it is passed to the audio player.
+     * 
+     * @param player Dependency injection for playing back the file.
+     */
     public void nextSong(FxPlayer player)   {
         File next = nextFile(player.getCurrentlyPlayingString());
         if (next == null)   {
@@ -44,7 +64,7 @@ public class Browser {
         player.play(next);
     }
     
-    public File previousFile(String current)    {
+    private File previousFile(String current)    {
         File[] files = listFiles();
         for (int i = files.length - 1; i >= 0; i--)  {
             if (files[i].toString().equals(current))   {
@@ -58,7 +78,7 @@ public class Browser {
         return null;
     }
     
-    public File nextFile(String current)    {
+    private File nextFile(String current)    {
         File[] files = listFiles();
         for (int i = 0; i < files.length; i++)  {
             if (files[i].toString().equals(current))   {
@@ -72,6 +92,12 @@ public class Browser {
         return null;
     }
     
+    /**
+     * Attempts to move up one directory in the file system.
+     * Does nothing if already at root.
+     * 
+     * @return True if successful, false if already at root.
+     */
     public boolean moveUpOneDirectory() {
         String curDir = getCurrentDirectory();
         // do nothing if already at root directory
@@ -79,15 +105,19 @@ public class Browser {
             return false;
         }
         String[] levels = curDir.split(regexDS);
-        //System.out.println(levels[levels.length - 1]);
         String newDir = curDir.replace(DS + levels[levels.length - 1], "");
-        //System.out.println(newDir);
         currentDirectory = new File(newDir);
         return true;
     }
     
+    /**
+     * Moves to the given directory.
+     * 
+     * @param s The directory as a string.
+     * 
+     * @return True if successful. 
+     */
     public boolean changeDirectory(String s)   {
-        // TODO: moving up a directory when input is ".."
         if (s.equals("."))  {
             currentDirectory = new File(".");
             return true;
@@ -99,6 +129,14 @@ public class Browser {
         return false;
     }
     
+    /**
+     * Either moves to a directory or attempts to play back a file, 
+     * depending if the given file is a directory or not.
+     * 
+     * @param f The file to move to or play.
+     * @param audio Dependency injection for playing back the file.
+     * @return True if successfully moved directory or sent file to player.
+     */
     public boolean changeDirectoryOrPlay(File f, FxPlayer audio)   {
         if (f.isDirectory())    {
             String s = f.toString();
@@ -128,11 +166,21 @@ public class Browser {
         return false;
     }
 
-    
+    /**
+     * Lists all files in the current directory.
+     * 
+     * @return An array containing all files in current directory.
+     */
     public File[] listFiles()  {
         return currentDirectory.listFiles();
     }
     
+    /**
+     * Lists all the filenames in the current directory, with 
+     * the preceding folders removed using the regexDS variable,
+     * 
+     * @return An array containing the formatted file names.
+     */
     public String[] listFilesFormatted()    {
         File[] files = currentDirectory.listFiles();
         String[] names = new String[files.length];
@@ -140,14 +188,17 @@ public class Browser {
             String name = files[i].toString();
             String[] split = name.split(regexDS);
             name = split[split.length - 1];
-//            if (name.length() > 20) {
-//                name = name.substring(0, 19) + "...";
-//            }
             names[i] = name;
         }
         return names;
     }
     
+    /**
+     * Lists all the filenames in the current directory as is, 
+     * containing all the preceding folders.
+     * 
+     * @return An array containing the full file names.
+     */
     public String[] listFilesString()  { 
         File[] files = currentDirectory.listFiles();
         if (files == null)  {

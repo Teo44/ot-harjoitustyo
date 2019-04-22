@@ -350,7 +350,6 @@ public class Ui extends Application{
     // TODO: return a list for more flexibility?
     // NOTE: probably undeed now
     private VBox fileVBox()    {
-        //String[] files = browser.listFilesString();
         File[] files = browser.listFiles();
         String[] names = browser.listFilesFormatted();
         VBox fileBox = new VBox();

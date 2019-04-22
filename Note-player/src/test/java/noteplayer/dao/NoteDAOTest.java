@@ -1,7 +1,7 @@
 package noteplayer.dao;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,8 +16,14 @@ public class NoteDAOTest {
     
     @Test
     public void savingNotesWorks1() {
-        noteDAO.saveNote("song name", "note text");
+        noteDAO.saveNoteAndScrollSpeed("song name", "note text", 40);
         assertEquals("note text", noteDAO.getSongNote("song name"));
+    }
+    
+    @Test
+    public void savingScrollSpeedWorks() {
+        noteDAO.saveNoteAndScrollSpeed("song name", "note text", 40);
+        assertTrue(40 == noteDAO.getSongScrollSpeed("song name", 60));
     }
     
     @Test
