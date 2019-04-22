@@ -94,15 +94,15 @@ public class Ui extends Application{
         
         // creating the top bar
         HBox player = new HBox();
-        player = saveButton(player);
-        player = playerButtons(player);
+        player.getChildren().add(noteSaveButton());
+        player.getChildren().add(playerButtons());
         cp = new Label("Currently playing: ");
         cp.setPadding(new Insets(5, 0, 0, 0));
         HBox cpBox = new HBox();
         cpBox.getChildren().add(cp);
         cpBox.getChildren().add(currentlyPlaying);
         player.getChildren().add(cpBox);
-        player = fontSizeButtons(player);
+        player.getChildren().add(fontSizeButtons());
         styleButton = styleButton();
         player.getChildren().add(styleButton);
         player.getChildren().add(autoScrollSpeedControl());
@@ -251,7 +251,7 @@ public class Ui extends Application{
         return button;
     }
     
-    private HBox fontSizeButtons(HBox hbox) {
+    private HBox fontSizeButtons() {
         HBox hbox2 = new HBox();
         fs = new Label("Font size: " + fontSize);
         fs.setPadding(new Insets(5, 5, 0, 0));
@@ -266,8 +266,7 @@ public class Ui extends Application{
         });
         
         hbox2.getChildren().addAll(smaller, bigger);
-        hbox.getChildren().add(hbox2);
-        return hbox;
+        return hbox2;
     }
     
     private void fontSizeDown() {
@@ -303,30 +302,8 @@ public class Ui extends Application{
         return textArea;
     }
     
-    // creates the buttons to control playback
-    // TODO: volume, functionality for next and previous track,
-    // repeat
-    private HBox playerButtons()    {
-        HBox buttons = new HBox();
-        
-        buttons.getChildren().add(noteSaveButton());
-        Button prevButton = new Button("<<");
-        prevButton.setOnAction((event) ->   {
-            audio.prev();
-        });
-        buttons.getChildren().add(prevButton);
-        Button playButton = new Button("||");
-        playButton.setOnAction((event) ->   {
-            audio.togglePause();
-        });
-        buttons.getChildren().add(playButton);
-        Button nextButton = new Button(">>");
-        buttons.getChildren().add(nextButton);
-        return buttons;
-    }
-    
     // like above, but adds the buttons to an existing HBox
-    private HBox playerButtons(HBox hbox)   {
+    private HBox playerButtons()   {
         HBox hbox2 = new HBox();
         Button prevButton = new Button("<<");
         prevButton.setOnAction((event) ->   {
@@ -348,8 +325,9 @@ public class Ui extends Application{
             }
         });
         hbox2.getChildren().add(repeatButton);
-        hbox.getChildren().add(hbox2);
-        return hbox;
+        return hbox2;
+//        hbox.getChildren().add(hbox2);
+//        return hbox;
     }
     
     private HBox saveButton(HBox hbox)    {
