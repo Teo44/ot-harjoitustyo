@@ -25,6 +25,53 @@ public class Browser {
         return currentDirectory.toString();
     }
     
+    public void previousSong(FxPlayer player)   {
+        if (!(player.prev()))   {
+            return;
+        }
+        File next = previousFile(player.getCurrentlyPlayingString());
+        if (next == null)   {
+            return;
+        }
+        player.play(next);
+    }
+    
+    public void nextSong(FxPlayer player)   {
+        File next = nextFile(player.getCurrentlyPlayingString());
+        if (next == null)   {
+            return;
+        }
+        player.play(next);
+    }
+    
+    public File previousFile(String current)    {
+        File[] files = listFiles();
+        for (int i = files.length - 1; i >= 0; i--)  {
+            if (files[i].toString().equals(current))   {
+                for (int j = i - 1; j >= 0; j--)  {
+                    if (files[j].isFile())  {
+                        return files[j];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+    public File nextFile(String current)    {
+        File[] files = listFiles();
+        for (int i = 0; i < files.length; i++)  {
+            if (files[i].toString().equals(current))   {
+                for (int j = i + 1; j < files.length; j++)  {
+                    if (files[j].isFile())  {
+                        return files[j];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
     public boolean moveUpOneDirectory() {
         String curDir = getCurrentDirectory();
         // do nothing if already at root directory

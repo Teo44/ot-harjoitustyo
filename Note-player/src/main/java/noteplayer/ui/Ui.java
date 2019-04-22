@@ -307,7 +307,7 @@ public class Ui extends Application{
         HBox hbox2 = new HBox();
         Button prevButton = new Button("<<");
         prevButton.setOnAction((event) ->   {
-            audio.prev();
+            browser.previousSong(audio);
         });
         hbox2.getChildren().add(prevButton);
         Button playButton = new Button("||");
@@ -315,7 +315,11 @@ public class Ui extends Application{
             audio.togglePause();
         });
         hbox2.getChildren().add(playButton);
-        hbox2.getChildren().add(new Button(">>"));
+        Button nextButton = new Button(">>");
+        nextButton.setOnAction((event)  ->  {
+            browser.nextSong(audio);
+        });
+        hbox2.getChildren().add(nextButton);
         Button repeatButton = new Button("repeat on");
         repeatButton.setOnAction((event) -> {
             if (audio.toggleRepeat())   {

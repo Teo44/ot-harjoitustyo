@@ -5,6 +5,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
+import noteplayer.filebrowser.Browser;
 
 
 
@@ -62,7 +63,7 @@ public class FxPlayer {
         
         try {
             media = new Media(file.toURI().toString());
-            currentlyPlaying = file.toURI().toString();
+            currentlyPlaying = file.toString();
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
             isPlaying = true;
@@ -107,17 +108,21 @@ public class FxPlayer {
         return currentlyPlaying;
     }
     
-    public void prev()  {
+    public boolean prev()  {
         if (mediaPlayer == null)    {
-            return;
+            return false;
         }
         // starts the song from the beginning
         if (isPlaying())    {
+            if (mediaPlayer.getCurrentTime().toSeconds() < 5)   {
+                return true;
+            }
             mediaPlayer.stop();
             mediaPlayer.play();
         } else  {
             mediaPlayer.stop();
         }
+        return false;
         // TODO: if the song is in the first 5 (?) seconds, 
         // attempt to move to the previous song (the next song above
         // in the directory?
@@ -140,6 +145,10 @@ public class FxPlayer {
         }
     }
     
+    public boolean isOnRepeat() {
+        return repeat;
+    }
+    
     public boolean toggleRepeat()  {
         if (mediaPlayer == null)    {
             return false;
@@ -149,6 +158,7 @@ public class FxPlayer {
                 public void run()    {
                 } 
             });
+            repeat = false;
             return false;
         } else  {
             mediaPlayer.setOnEndOfMedia(new Runnable()  {
@@ -156,6 +166,7 @@ public class FxPlayer {
                     mediaPlayer.seek(Duration.ZERO);
                 } 
             });
+            repeat = true;
             return true;
         }
     }
