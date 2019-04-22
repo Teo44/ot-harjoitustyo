@@ -4,6 +4,7 @@ import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
+import javafx.util.Duration;
 
 
 
@@ -15,6 +16,7 @@ public class FxPlayer {
     private MediaPlayer mediaPlayer;
     private String currentlyPlaying;
     private Boolean isPlaying;
+    private Boolean repeat;
     
     
     public FxPlayer()  {
@@ -26,6 +28,7 @@ public class FxPlayer {
             regexDS = "/";
         }
         isPlaying = false;
+        repeat = false;
     }
     
     public void play(String file, String curDir)  {
@@ -134,6 +137,24 @@ public class FxPlayer {
         } else  {
             mediaPlayer.play();
             isPlaying = true;
+        }
+    }
+    
+    public void toggleRepeat()  {
+        if (mediaPlayer == null)    {
+            return;
+        }
+        if (repeat) {
+            mediaPlayer.setOnEndOfMedia(new Runnable()  {
+                public void run()    {
+                } 
+            });
+        } else  {
+            mediaPlayer.setOnEndOfMedia(new Runnable()  {
+                public void run()    {
+                    mediaPlayer.seek(Duration.ZERO);
+                } 
+            });
         }
     }
     

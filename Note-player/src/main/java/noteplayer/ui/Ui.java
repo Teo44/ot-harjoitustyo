@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -81,7 +82,8 @@ public class Ui extends Application{
         notes = new HashMap<>();
         
         //TODO: a better layout, as in specifications
-        VBox leftBox = fileVBox();
+        //VBox leftBox = fileVBox();
+        VBox leftBox = fileListView();
         pane.setLeft(leftBox);
         noteArea = noteTextArea();
         noteArea.setFont(Font.font("", fontSize));
@@ -345,13 +347,15 @@ public class Ui extends Application{
     }
     
     private void refreshFiles() {
-        pane.setLeft(fileVBox());
+        //pane.setLeft(fileVBox());
+        pane.setLeft(fileListView());
     }
     
     // creates a button for each file and directory
     // in the current directory, returns them in a 
     // VBox. 
     // TODO: return a list for more flexibility?
+    // NOTE: probably undeed now
     private VBox fileVBox()    {
         //String[] files = browser.listFilesString();
         File[] files = browser.listFiles();
@@ -365,7 +369,6 @@ public class Ui extends Application{
         fileBox.getChildren().add(up);
         for(int i = 0; i < files.length; i++)   {
              File file = files[i];
-             //Button button = new Button(file.toString());
              Button button = new Button(names[i]);
              // TODO: change directory if file is directory,
              // otherwise attempt to play file
@@ -381,6 +384,40 @@ public class Ui extends Application{
         }
         fileBox.setPadding(new Insets(10, 0, 0, 0));
         return fileBox;
+    }
+    
+    private VBox fileListView()    {
+        File[] files = browser.listFiles();
+        String[] names = browser.listFilesFormatted();
+        VBox box = new VBox();
+        ListView list = new ListView();
+        Button up = new Button("Upper directory");
+        up.setOnAction((event) ->   {
+            browser.moveUpOneDirectory();
+            refreshFiles();
+        });
+        box.getChildren().add(up);
+        //list.getItems().add(up);
+        for(int i = 0; i < files.length; i++)   {
+             File file = files[i];
+             Button button = new Button(names[i]);
+             // TODO: change directory if file is directory,
+             // otherwise attempt to play file
+             button.setOnAction((event) ->  {
+                 browser.changeDirectoryOrPlay(file, audio);
+                 if (file.isFile()) {
+                    updateForSong(file);
+                    updateCurrentlyPlaying();
+                 }
+                 refreshFiles();
+             });
+             list.getItems().add(button);
+        }
+        box.setPadding(new Insets(10, 10, 0, 0));
+        box.setSpacing(10);
+        //list.setPadding(new Insets(0, 0, 0, 0));
+        box.getChildren().add(list);
+        return box;
     }
     
 }

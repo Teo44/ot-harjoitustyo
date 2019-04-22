@@ -93,9 +93,9 @@ public class Browser {
             String name = files[i].toString();
             String[] split = name.split(regexDS);
             name = split[split.length - 1];
-            if (name.length() > 20) {
-                name = name.substring(0, 19) + "...";
-            }
+//            if (name.length() > 20) {
+//                name = name.substring(0, 19) + "...";
+//            }
             names[i] = name;
         }
         return names;
