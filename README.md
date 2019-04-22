@@ -93,6 +93,10 @@ quit
 
 ## Tests
 
+Sometimes the tests can require multiple runs to pass, due to the mysterious nature of the JavaFX mediaplayer.
+
+Note: 
+
 Running tests
 
 ```
