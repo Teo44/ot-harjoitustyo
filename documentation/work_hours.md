@@ -15,4 +15,6 @@
 | 14.4.| 1    | New tests |
 | 15.4 | 3    | New features and tests |
 | 16.4.| 5    | New features and fixes |
-| ---  | 32   | | 
+| 22.4.| 2    | New features |
+| 23.4.| 1    | Javadoc |
+| ---  | 35   | | 
