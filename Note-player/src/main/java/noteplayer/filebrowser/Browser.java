@@ -110,6 +110,7 @@ public class Browser {
         String[] levels = curDir.split(regexDS);
         String newDir = curDir.replace(DS + levels[levels.length - 1], "");
         currentDirectory = new File(newDir);
+        System.out.println(currentDirectory.toString());
         return true;
     }
     
