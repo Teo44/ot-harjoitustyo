@@ -91,7 +91,6 @@ public class NoteDAO {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:./" + db, "sa", "");
         return connection;
     }
-    
 
     /**
      * Saves a song's note and scroll speed to the database. Any previous

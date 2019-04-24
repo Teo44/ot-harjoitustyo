@@ -34,10 +34,13 @@ public class Browser {
     }
     
     /**
-     * Attempts to find the previous song in the current directory.
+     * Calls the player's prev() method. If return value is true, 
+     * attempts to find the previous song in the current directory.
      * If found, it is passed to the audio player.
      * 
-     * @param player Dependency injection for playing back the file.
+     * @see noteplayer.player.FxPlayer#prev() 
+     * 
+     * @param player Dependency injection.
      */
     public void previousSong(FxPlayer player)   {
         if (!(player.prev()))   {

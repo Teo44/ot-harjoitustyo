@@ -5,9 +5,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
-import noteplayer.filebrowser.Browser;
-
-
 
 public class FxPlayer {
     
@@ -19,7 +16,12 @@ public class FxPlayer {
     private Boolean isPlaying;
     private Boolean repeat;
     
-    
+    /**
+     * Sets the DS (directory separator) final variables depending
+     * on the OS, as Windows uses "\" and Unix "/".
+     * 
+     * Also sets isPlaying and repeat to the default false.
+     */
     public FxPlayer()  {
         if (System.getProperty("os.name").contains("Windows"))   {
             DS = "\\";
@@ -32,6 +34,14 @@ public class FxPlayer {
         repeat = false;
     }
     
+    /**
+     * Attempts to play a file with the given name, located in the given
+     * directory. Combines the file and current directory strings to get 
+     * the full, usable path to the file.
+     * 
+     * @param file the file to play, as file.toString()
+     * @param curDir the current directory, as directory.toString()
+     */
     public void play(String file, String curDir)  {
         
         // Stop any ongoing playback before starting the new one
@@ -53,6 +63,11 @@ public class FxPlayer {
         
     }
      
+    /**
+     * Attempts to play the given file.
+     * 
+     * @param file audio file as a java File-object
+     */
     public void play(File file)  {
         
         // Stop any ongoing playback before starting the new one
@@ -74,6 +89,11 @@ public class FxPlayer {
         
     }
     
+    /**
+     * Attempts to play a file at the given file path. 
+     * 
+     * @param file full file path as file.toString()
+     */
     public void play(String file)  {
         
         // Stop any ongoing playback before starting the new one
@@ -95,6 +115,12 @@ public class FxPlayer {
         
     }
     
+    /**
+     * Returns the name of the currently playing audio, without the
+     * preceding file path.
+     * 
+     * @return the currently playing audio.
+     */
     public String getCurrentlyPlayingFormattedString()  {
         if (media == null)  {
             return null;
@@ -104,10 +130,23 @@ public class FxPlayer {
         return split[split.length - 1];
     }
     
+    /**
+     * 
+     * @return the full file path to the currently playing file
+     */
     public String getCurrentlyPlayingString()   {
         return currentlyPlaying;
     }
     
+    /**
+     * If the song playback is at 5 or more seconds, moves the playback 
+     * to the beginning and returns false. If the playback is at less 
+     * than 5 seconds, returns true. 
+     * 
+     * @see noteplayer.filebrowser.Browser#previousSong(FxPlayer) 
+     * 
+     * @return true if playback at less than 5 seconds.
+     */
     public boolean prev()  {
         if (mediaPlayer == null)    {
             return false;
@@ -123,15 +162,15 @@ public class FxPlayer {
             mediaPlayer.stop();
         }
         return false;
-        // TODO: if the song is in the first 5 (?) seconds, 
-        // attempt to move to the previous song (the next song above
-        // in the directory?
     }
     
     public boolean isPlaying()  {
         return isPlaying;
     }
     
+    /**
+     * Unpauses if the audio is paused, and vice versa.
+     */
     public void togglePause()   {
         if (mediaPlayer == null)   {
             return;
@@ -149,6 +188,11 @@ public class FxPlayer {
         return repeat;
     }
     
+    /** 
+     * Turns repeat on if it is off, and vice versa.
+     * 
+     * @return true if repeat was turned on, otherwise false. 
+     */
     public boolean toggleRepeat()  {
         if (mediaPlayer == null)    {
             return false;
@@ -171,6 +215,9 @@ public class FxPlayer {
         }
     }
     
+    /**
+     * Pauses audio playback.
+     */
     public void pausePlayback()  {
         if (mediaPlayer == null)   {
             return;
@@ -179,6 +226,9 @@ public class FxPlayer {
         isPlaying = false;
     }
     
+    /**
+     * Resumes audio playback.
+     */
     public void unpausePlayback()   {
         if (mediaPlayer == null)   {
             return;

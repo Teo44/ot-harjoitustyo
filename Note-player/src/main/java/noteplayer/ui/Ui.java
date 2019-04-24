@@ -293,16 +293,11 @@ public class Ui extends Application{
         }
         currentlyPlayingFileName = songName;
     }
-    
-    // TODO: if a note exists for a song, this method
-    // should retrive it from a yet-to-be-written class
-    // and display it
     private TextArea noteTextArea() {
         TextArea textArea = new TextArea("");
         return textArea;
     }
     
-    // like above, but adds the buttons to an existing HBox
     private HBox playerButtons()   {
         HBox hbox2 = new HBox();
         Button prevButton = new Button("<<");
@@ -330,17 +325,9 @@ public class Ui extends Application{
         });
         hbox2.getChildren().add(repeatButton);
         return hbox2;
-//        hbox.getChildren().add(hbox2);
-//        return hbox;
-    }
-    
-    private HBox saveButton(HBox hbox)    {
-        hbox.getChildren().add(noteSaveButton());
-        return hbox;
     }
     
     private void refreshFiles() {
-        //pane.setLeft(fileVBox());
         pane.setLeft(fileListView());
     }
     
