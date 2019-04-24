@@ -23,9 +23,14 @@ public class Audio  {
         }
     }
     
-    // This play-method can be given the current directory
-    // as a string, and it will append the given filepath 
-    // to that
+    /**
+     * Attempts to play a file with the given name, located in the given
+     * directory. Combines the file and current directory strings to get 
+     * the full, usable path to the file.
+     * 
+     * @param file the file to play, as file.toString()
+     * @param curDir the current directory, as directory.toString()
+     */
     public void play(String file, String curDir)  {
         
         // Stop any ongoing playback before starting the new one
@@ -46,6 +51,11 @@ public class Audio  {
         
     }
     
+    /**
+     * Attempts to play the given file.
+     * 
+     * @param file audio file as a java File-object
+     */
     public void play(File file)  {
         
         // Stop any ongoing playback before starting the new one
@@ -70,6 +80,12 @@ public class Audio  {
         return audioFile;
     }
     
+    /**
+     * Returns the name of the currently playing audio, without the
+     * preceding file path.
+     * 
+     * @return the currently playing audio.
+     */
     public String getCurrentlyPlayingFormattedString()  {
         if (audioFile == null)  {
             return null;
@@ -86,6 +102,11 @@ public class Audio  {
         return audioFile.toString();
     }
     
+    /**
+     * Attempts to play a file at the given file path. 
+     * 
+     * @param file full file path as file.toString()
+     */
     public void play(String file)  {
         
         // Stop any ongoing playback before starting the new one
@@ -110,6 +131,9 @@ public class Audio  {
         return clip.isActive();
     }
     
+    /**
+     * Resumes the playback if paused, and vice versa.
+     */
     public void togglePause()   {
         if (clip == null)   {
             return;
@@ -121,6 +145,9 @@ public class Audio  {
         }
     }
     
+    /**
+     * Pauses audio playback.
+     */
     public void pausePlayback()  {
         if (clip == null)   {
             return;
@@ -128,6 +155,9 @@ public class Audio  {
         clip.stop();
     }
     
+    /**
+     * Resumes audio playback.
+     */
     public void unpausePlayback()   {
         clip.start();
     }

@@ -169,7 +169,7 @@ public class FxPlayer {
     }
     
     /**
-     * Unpauses if the audio is paused, and vice versa.
+     * Resumes the playback if paused, and vice versa.
      */
     public void togglePause()   {
         if (mediaPlayer == null)   {
