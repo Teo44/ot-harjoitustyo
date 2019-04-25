@@ -113,3 +113,8 @@ Checkstyle
 ```
 mvn jxr:jxr checkstyle:checkstyle
 ```
+
+Generating javadoc
+```
+mvn javadoc:javadoc
+```

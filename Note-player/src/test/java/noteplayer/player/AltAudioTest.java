@@ -5,20 +5,17 @@ import java.util.concurrent.TimeUnit;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
 
-public class AudioTest {
+public class AltAudioTest {
     
-    static FxPlayer audio;
+    static Audio audio;
     static String DS;
     static String regexDS;
     
-    @Rule public JavaFxThreadingRule javafxRule = new JavaFxThreadingRule();
-    
     @BeforeClass
     public static void createAudio()    {
-        audio = new FxPlayer();
+        audio = new Audio();
         if (System.getProperty("os.name").contains("Windows"))   {
             DS = "\\";
             regexDS = "\\\\";
@@ -109,39 +106,4 @@ public class AudioTest {
         audio.play("some song", "some_directory");
         assertFalse(audio.isPlaying());
     }
-    
-    @Test
-    public void repeatWorks1()  {
-        audio.play("test_audio"+DS+"ukulele.wav");
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (Exception e) {}
-        assertTrue(audio.toggleRepeat());
-    }
-    
-    @Test
-    public void repeatWorks2()  {
-        // no idea why this needs a new player to be created
-        // here, testing javafx classes is weird
-        audio = new FxPlayer();
-        audio.play("test_audio"+DS+"ukulele.wav");
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (Exception e) {}
-        audio.toggleRepeat();
-        audio.toggleRepeat();
-        assertFalse(audio.isOnRepeat());
-    }
-    
-    @Test
-    public void togglePauseWorks() {
-        audio.play("test_audio"+DS+"ukulele.wav");
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (Exception e) {}
-        audio.togglePause();
-        audio.togglePause();
-        assertTrue(audio.isPlaying());
-    }
-    
 }
