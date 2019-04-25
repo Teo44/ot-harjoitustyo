@@ -1,7 +1,8 @@
-package noteplayer.player;
+package noteplayer.ui;
 
 import java.util.*;
 import noteplayer.filebrowser.Browser;
+import noteplayer.player.Audio;
 
 
 public class Main {
