@@ -6,6 +6,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
+/**
+ * Used for audio playback with the JavaFx media player
+ * @author teo
+ */
 public class FxPlayer {
     
     final private String DS;

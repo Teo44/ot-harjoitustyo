@@ -3,6 +3,11 @@ package noteplayer.filebrowser;
 import java.io.File;
 import noteplayer.player.FxPlayer;
 
+/**
+ * Used for listing and accessing files.
+ * 
+ * @author teo
+ */
 public class Browser {
     
     File currentDirectory;

@@ -2,6 +2,12 @@ package noteplayer.dao;
 
 import java.sql.*;
 
+/**
+ * Saves songs' notes and scrollspeeds to the database and 
+ * queries them back.
+ * 
+ * @author teo
+ */
 public class NoteDAO {
     
     String currentNote;

@@ -2,6 +2,11 @@ package noteplayer.dao;
 
 import java.sql.*;
 
+/**
+ * Saves setting parameters to the database.
+ * 
+ * @author teo
+ */
 public class SettingsDAO {
     
     private String db;

@@ -5,6 +5,13 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * Used for audio playback using java clips and streams, as 
+ * opposed to the JavaFX media player. Doesn't support MP3. 
+ * Kept around as JavaFX is rather temperamental.
+ * 
+ * @author teo
+ */
 public class Audio  {
     
     private AudioInputStream stream;
