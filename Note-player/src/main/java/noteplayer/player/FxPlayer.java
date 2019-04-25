@@ -237,6 +237,18 @@ public class FxPlayer {
         isPlaying = true;
     }
     
+    /**
+     * Sets the players volume
+     * 
+     * @param vol double between 0 and 1 
+     */
+    public void setVolume(double vol)   {
+        if (mediaPlayer == null)    {
+            return;
+        }
+        mediaPlayer.setVolume(vol);
+    }
+    
     
     
 }

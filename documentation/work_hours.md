@@ -18,5 +18,5 @@
 | 22.4.| 2    | New features |
 | 23.4.| 1    | Documentation |
 | 24.4.| 1    | Docs, tests |
-| 25.4.| 2    | Tests, docs |
-| ---  | 38   | | 
+| 25.4.| 3    | Tests, docs, features |
+| ---  | 39   | | 

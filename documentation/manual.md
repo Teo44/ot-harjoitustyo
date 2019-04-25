@@ -14,7 +14,7 @@ java -jar Note-player-x.x.jar
 
 Use the file browser on the left side to navigate to your music files and simply click a file to start playback. The currently playing file will be displayed in the top bar, next to the player controls. Note that the files must currently be in the same directory as the program. 
 
-Above the file browser are the audio players control, from left to right: move playback to beginning/previous file, pause/play, next file and repeat toggle.
+Above the file browser are the audio players control, from left to right: volue slider, move playback to beginning/previous file, pause/play, next file and repeat toggle.
 
 ### Notes
 

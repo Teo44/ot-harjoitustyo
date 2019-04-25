@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -50,6 +51,9 @@ public class Ui extends Application{
     Button bigger;
     Button autoScrollToggle;
     
+    Slider volume;
+    Double volumeValue;
+    
     Integer fontSize;
     Integer theme;
     Integer scrollSpeed;
@@ -65,8 +69,8 @@ public class Ui extends Application{
         // default values, used when no settings are found
         fontSize = 14;
         theme = 1;
+        volumeValue = 0.5;
         
-        //audio = new Audio();
         audio = new FxPlayer();
         browser = new Browser();
         noteDAO = new NoteDAO("notes");
@@ -76,6 +80,9 @@ public class Ui extends Application{
         // get possible saved settings from database
         fontSize = settingsDAO.getFontSize(fontSize);
         theme = settingsDAO.getTheme(theme);
+        
+        // TODO: save volume to database
+        audio.setVolume(volumeValue);
         
         currentlyPlaying = new Label("---");
         currentlyPlaying.setPadding(new Insets(5, 5, 0, 0));
@@ -95,6 +102,7 @@ public class Ui extends Application{
         // creating the top bar
         HBox player = new HBox();
         player.getChildren().add(noteSaveButton());
+        player.getChildren().add(volumeSlider());
         player.getChildren().add(playerButtons());
         cp = new Label("Currently playing: ");
         cp.setPadding(new Insets(5, 0, 0, 0));
@@ -134,6 +142,21 @@ public class Ui extends Application{
     
     public static void main(String[] args)  {
         launch(Ui.class);
+    }
+    
+    private Slider volumeSlider()   {
+        volume = new Slider();
+        volume.setMin(0);
+        volume.setMax(100);
+        volume.setValue(volumeValue * 100);
+        volume.setPrefWidth(100);
+        volume.valueProperty().addListener(
+            (observable, oldvalue, newvalue) ->
+            {
+                audio.setVolume((double)newvalue / 100);
+            }); 
+        
+        return volume;
     }
     
     private void updateCurrentlyPlaying()    {
