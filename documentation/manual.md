@@ -16,6 +16,8 @@ Use the file browser on the left side to navigate to your music files and simply
 
 Above the file browser are the audio players control, from left to right: volue slider, move playback to beginning/previous file, pause/play, next file and repeat toggle.
 
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/screenshots/basic_view_1.png">
+
 ### Notes
 
 #### Adding notes
@@ -28,9 +30,13 @@ When a song is chosen, the program will automatically load its existing note, no
 
 #### Adjusting font size
 
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/screenshots/font_size.png">
+
 Note font size can be adjusted with the '-' and '+' buttons in the top bar. It is also automatically saved when the program is exited.
 
 ### Autoscroll
+
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/screenshots/autoscroll.png">
 
 Autoscroll is meant for automatically scrolling a song's chord diagram written in the note while the song plays; Note-players original intented use. 
 
@@ -41,3 +47,6 @@ The duration setting is roughly the time in seconds it takes for the autoscroll 
 #### Theme
 
 Note-players has a light and a dark theme, which can be changed with the 'Light/Dark theme' button. The chosen theme is automatically saved when the program is exited.
+
+
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/screenshots/theme_comparison.png">
