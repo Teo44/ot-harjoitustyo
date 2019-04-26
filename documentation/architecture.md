@@ -14,6 +14,11 @@ Pictured below: file list on the left, controls and settings along the top, the 
 
 <img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/screenshots/basic_view_1.png">
 
+The alternative dark theme:
+
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/screenshots/basic_view_2.png">
+
+
 
 ## Program logic
 
