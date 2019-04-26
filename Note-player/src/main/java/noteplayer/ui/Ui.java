@@ -29,7 +29,6 @@ import noteplayer.player.FxPlayer;
 
 public class Ui extends Application{
     
-    //Audio audio;
     FxPlayer audio;
     Browser browser;
     NoteDAO noteDAO;
@@ -60,7 +59,6 @@ public class Ui extends Application{
     
     String currentlyPlayingFileName;
     
-    HashMap<String, String> notes;
     
     @Override
     public void start(Stage stage) {
@@ -86,10 +84,8 @@ public class Ui extends Application{
         
         currentlyPlaying = new Label("---");
         currentlyPlaying.setPadding(new Insets(5, 5, 0, 0));
-        notes = new HashMap<>();
         
         //TODO: a better layout, as in specifications
-        //VBox leftBox = fileVBox();
         VBox leftBox = fileListView();
         pane.setLeft(leftBox);
         noteArea = noteTextArea();
@@ -353,41 +349,7 @@ public class Ui extends Application{
     private void refreshFiles() {
         pane.setLeft(fileListView());
     }
-    
-    // creates a button for each file and directory
-    // in the current directory, returns them in a 
-    // VBox. 
-    // TODO: return a list for more flexibility?
-    // NOTE: probably undeed now
-    private VBox fileVBox()    {
-        File[] files = browser.listFiles();
-        String[] names = browser.listFilesFormatted();
-        VBox fileBox = new VBox();
-        Button up = new Button("Upper directory");
-        up.setOnAction((event) ->   {
-            browser.moveUpOneDirectory();
-            refreshFiles();
-        });
-        fileBox.getChildren().add(up);
-        for(int i = 0; i < files.length; i++)   {
-             File file = files[i];
-             Button button = new Button(names[i]);
-             // TODO: change directory if file is directory,
-             // otherwise attempt to play file
-             button.setOnAction((event) ->  {
-                 browser.changeDirectoryOrPlay(file, audio);
-                 if (file.isFile()) {
-                    updateForSong(file);
-                    updateCurrentlyPlaying();
-                 }
-                 refreshFiles();
-             });
-             fileBox.getChildren().add(button);
-        }
-        fileBox.setPadding(new Insets(10, 0, 0, 0));
-        return fileBox;
-    }
-    
+
     private VBox fileListView()    {
         File[] files = browser.listFiles();
         String[] names = browser.listFilesFormatted();
@@ -399,7 +361,6 @@ public class Ui extends Application{
             refreshFiles();
         });
         box.getChildren().add(up);
-        //list.getItems().add(up);
         for(int i = 0; i < files.length; i++)   {
              File file = files[i];
              Button button = new Button(names[i]);
@@ -417,7 +378,6 @@ public class Ui extends Application{
         }
         box.setPadding(new Insets(0, 10, 0, 0));
         box.setSpacing(10);
-        //list.setPadding(new Insets(0, 0, 0, 0));
         box.getChildren().add(list);
         return box;
     }
