@@ -93,7 +93,7 @@ quit
 
 ## Tests
 
-Sometimes the tests can require multiple runs to pass, due to the mysterious nature of the JavaFX mediaplayer.
+Sometimes the tests can require multiple runs to pass, due to the mysterious nature of the JavaFX mediaplayer. It is recommended to stop all other audio playback when running the tests.
 
 Note: 
 

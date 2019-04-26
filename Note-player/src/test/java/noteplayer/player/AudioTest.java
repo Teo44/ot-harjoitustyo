@@ -144,4 +144,18 @@ public class AudioTest {
         assertTrue(audio.isPlaying());
     }
     
+    @Test
+    public void prevWorksWhenUnder5Seconds()    {
+        audio.play("test_audio"+DS+"ukulele.wav");
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {}
+        assertTrue(audio.prev());
+    }
+    
+    @Test
+    public void prevWorksWhenNotPlaying()    {
+        assertFalse(audio.prev());
+    }
+    
 }
