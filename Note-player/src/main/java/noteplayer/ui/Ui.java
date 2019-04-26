@@ -29,35 +29,35 @@ import noteplayer.player.FxPlayer;
 
 public class Ui extends Application{
     
-    FxPlayer audio;
-    Browser browser;
-    NoteDAO noteDAO;
-    SettingsDAO settingsDAO;
-    BorderPane pane;
-    TextArea noteArea;
-    String noteText;
-    Label currentlyPlaying;
-    Label cp;
-    Label fs;
-    Scene scene;
-    TextField autoScrollSpeedField;
+    private FxPlayer audio;
+    private Browser browser;
+    private NoteDAO noteDAO;
+    private SettingsDAO settingsDAO;
+    private BorderPane pane;
+    private TextArea noteArea;
+    private String noteText;
+    private Label currentlyPlaying;
+    private Label cp;
+    private Label fs;
+    private Scene scene;
+    private TextField autoScrollSpeedField;
     
-    Animation autoScroll;
-    boolean autoScrolling;
+    private Animation autoScroll;
+    private boolean autoScrolling;
     
-    Button styleButton;
-    Button smaller;
-    Button bigger;
-    Button autoScrollToggle;
+    private Button styleButton;
+    private Button smaller;
+    private Button bigger;
+    private Button autoScrollToggle;
     
-    Slider volume;
-    Double volumeValue;
+    private Slider volume;
+    private Double volumeValue;
     
-    Integer fontSize;
-    Integer theme;
-    Integer scrollSpeed;
+    private Integer fontSize;
+    private Integer theme;
+    private Integer scrollSpeed;
     
-    String currentlyPlayingFileName;
+    private String currentlyPlayingFileName;
     
     
     @Override
