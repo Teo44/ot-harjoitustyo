@@ -12,7 +12,7 @@ public class Browser {
     
     File currentDirectory;
     // "directory separator", "/" on unix and "\" on windows
-    final private String DS;
+    final private String directorySeparator;
     final private String regexDS;
     
     /**
@@ -26,10 +26,10 @@ public class Browser {
     public Browser() {
         currentDirectory = new File(".");
         if (System.getProperty("os.name").contains("Windows"))   {
-            DS = "\\";
+            directorySeparator = "\\";
             regexDS = "\\\\";
         } else  {
-            DS = "/";
+            directorySeparator = "/";
             regexDS = "/";
         }
     }
@@ -113,7 +113,7 @@ public class Browser {
             return false;
         }
         String[] levels = curDir.split(regexDS);
-        String newDir = curDir.replace(DS + levels[levels.length - 1], "");
+        String newDir = curDir.replace(directorySeparator + levels[levels.length - 1], "");
         currentDirectory = new File(newDir);
         System.out.println(currentDirectory.toString());
         return true;

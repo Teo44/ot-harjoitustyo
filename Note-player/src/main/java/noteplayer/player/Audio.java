@@ -17,15 +17,15 @@ public class Audio  {
     private AudioInputStream stream;
     private Clip clip;
     private File audioFile;
-    final private String DS;
+    final private String directorySeparator;
     final private String regexDS;
     
     public Audio()  {
         if (System.getProperty("os.name").contains("Windows"))   {
-            DS = "\\";
+            directorySeparator = "\\";
             regexDS = "\\\\";
         } else  {
-            DS = "/";
+            directorySeparator = "/";
             regexDS = "/";
         }
     }

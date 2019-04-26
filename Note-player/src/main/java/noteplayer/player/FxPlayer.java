@@ -12,7 +12,7 @@ import javafx.util.Duration;
  */
 public class FxPlayer {
     
-    final private String DS;
+    final private String directorySeparator;
     final private String regexDS;
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -21,17 +21,17 @@ public class FxPlayer {
     private Boolean repeat;
     
     /**
-     * Sets the DS (directory separator) final variables depending
+     * Sets the directory separator final variables depending
      * on the OS, as Windows uses "\" and Unix "/".
      * 
      * Also sets isPlaying and repeat to the default false.
      */
     public FxPlayer()  {
         if (System.getProperty("os.name").contains("Windows"))   {
-            DS = "\\";
+            directorySeparator = "\\";
             regexDS = "\\\\";
         } else  {
-            DS = "/";
+            directorySeparator = "/";
             regexDS = "/";
         }
         isPlaying = false;
@@ -55,8 +55,8 @@ public class FxPlayer {
         }
         
         try {
-            media = new Media(new File(curDir + DS + file).toURI().toString());
-            currentlyPlaying = curDir + DS + file;
+            media = new Media(new File(curDir + directorySeparator + file).toURI().toString());
+            currentlyPlaying = curDir + directorySeparator + file;
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
             isPlaying = true;
@@ -200,8 +200,7 @@ public class FxPlayer {
     public boolean toggleRepeat()  {
         if (mediaPlayer == null)    {
             return false;
-        }
-        if (repeat) {
+        } else if (repeat) {
             mediaPlayer.setOnEndOfMedia(new Runnable()  {
                 public void run()    {
                 } 
