@@ -56,4 +56,4 @@ SettingsDAO can save the user's settings, which are the chosen theme and font si
 
 Database diagram:
 
-<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/database_diagram.pdf">
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/database_diagram.png">
