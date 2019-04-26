@@ -19,4 +19,5 @@
 | 23.4.| 1    | Documentation |
 | 24.4.| 1    | Docs, tests |
 | 25.4.| 3    | Tests, docs, features |
-| ---  | 39   | | 
+| 26.4.| 2    | Documentation, fixes |
+| ---  | 41   | | 
