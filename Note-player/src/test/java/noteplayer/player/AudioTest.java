@@ -2,7 +2,9 @@ package noteplayer.player;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -156,6 +158,37 @@ public class AudioTest {
     @Test
     public void prevWorksWhenNotPlaying()    {
         assertFalse(audio.prev());
+    }
+    
+    @Test
+    public void getCurrentlyPlayingString() {
+        audio.play("test_audio"+DS+"ukulele.wav");
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {}
+        assertEquals("test_audio"+DS+"ukulele.wav", audio.getCurrentlyPlayingString());
+    }
+    
+    @Test
+    public void getCurrentlyPlayingString2()    {
+        assertNull(audio.getCurrentlyPlayingString());
+    }
+    
+    @Test
+    public void getCurrentlyPlayingFormattedString()    {
+        audio.play("test_audio"+DS+"ukulele.wav");
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {}
+        assertEquals("ukulele.wav", audio.getCurrentlyPlayingFormattedString());
+    }
+    
+    @Test
+    public void getCurrentlyPlayingFormattedStringasd2()    {
+        // new audio needs to be created, since the file from the previous 
+        // test is still playing here for some reason
+        audio = new FxPlayer();
+        assertNull(audio.getCurrentlyPlayingFormattedString());
     }
     
 }

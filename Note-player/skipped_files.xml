@@ -6,5 +6,5 @@
 
 <suppressions>
     <suppress files="noteplayer.ui.Ui" checks="[a-zA-Z0-9]*"/>
-	<suppress files="noteplayer.player.Main" checks="[a-zA-Z0-9]*"/>
+    <suppress files="noteplayer.ui.Main" checks="[a-zA-Z0-9]*"/>
 </suppressions>

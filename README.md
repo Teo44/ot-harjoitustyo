@@ -63,7 +63,7 @@ mvn compile exec:java -Dexec.mainClass=noteplayer.ui.Ui
 
 There is also a command-line interface for testing purposes
 ```
-mvn compile exec:java -Dexec.mainClass=noteplayer.player.Main
+mvn compile exec:java -Dexec.mainClass=noteplayer.ui.Main
 ```
 
 Entering a filepath to a .wav file will play the file.
