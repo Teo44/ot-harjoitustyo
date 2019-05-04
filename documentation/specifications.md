@@ -26,4 +26,4 @@ The only user role will be a normal user, as there is no need for administrators
 
 ## GUI-draft
 
-<img src="https://raw.githubusercontent.com/Teo44/ot-harjoitustyo/master/documentation/GUI-draft.png">
+<img src="https://raw.githubusercontent.com/Teo44/ot-harjoitustyo/master/documentation/pictures/GUI-draft.png">
