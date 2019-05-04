@@ -4,7 +4,7 @@
 
 The program structure consists of two layers, the UI and the logic. The UI responds to user actions by sending simple method calls to the player, file browser and dao-classes, which handle all of the program logic. When the browser and player need to interact, dependency injection is used to avoid having program logic in the UI.
 
-<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/class_diagram.png">
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/pictures/class_diagram.png">
 
 ## GUI
 
@@ -44,7 +44,7 @@ The player-class plays audio files and controls their playback, currently using 
 
 A sequence diagram of how the program might be used:
 
-<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/sequence_diagram_1.png">
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/pictures/sequence_diagram_1.png">
 
 ### Database
 
@@ -56,4 +56,4 @@ SettingsDAO can save the user's settings, which are the chosen theme and font si
 
 Database diagram:
 
-<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/database_diagram.png">
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/pictures/database_diagram.png">
