@@ -4,7 +4,7 @@ Currently, Note-player has a graphical file browser and audio player. Users can 
 
 ## Releases
 
-[v0.2-beta](https://github.com/Teo44/ot-harjoitustyo/releases/tag/v0.2.-beta)
+[v0.2-beta](https://github.com/Teo44/ot-harjoitustyo/releases/tag/v0.2-beta)
 
 [v0.1-beta](https://github.com/Teo44/ot-harjoitustyo/releases/tag/v0.1.-beta)
 
