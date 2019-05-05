@@ -20,4 +20,6 @@
 | 24.4.| 1    | Docs, tests |
 | 25.4.| 3    | Tests, docs, features |
 | 26.4.| 2    | Documentation, fixes |
-| ---  | 41   | | 
+| 4.5. | 2    | Tests |
+| 5.5  | 2    | Tests, documentation, final release |
+| ---  | 45   | | 
