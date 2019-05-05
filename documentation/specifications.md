@@ -17,12 +17,13 @@ The only user role will be a normal user, as there is no need for administrators
 - A basic music player with pause and volume control
 - A text editor for writing notes
 - Automatic opening of existing notes
-
+- Auto-scrolling chord-diagrams
+- More features for the player, such as next file, previous file and repeat
 
 ## Possible additional features
-- More features for the player, such as next file, previous file and repeat
+- ~More features for the player, such as next file, previous file and repeat~
 - Saveable playlists
-- Auto-scrolling chord-diagrams
+- ~Auto-scrolling chord-diagrams~
 
 ## GUI-draft
 
