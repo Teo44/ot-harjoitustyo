@@ -51,7 +51,6 @@ public class SettingsDAO {
             statement.close();
             connection.close();
         } catch (Exception e) {
-            System.out.println(e);
         }
         
     }
@@ -98,7 +97,6 @@ public class SettingsDAO {
             con.close();
             
         } catch (Exception e)   {
-            System.out.println(e);
         }
     }
     
@@ -119,7 +117,6 @@ public class SettingsDAO {
             con.close();
             
         } catch (Exception e)   {
-            System.out.println(e);
         }
     }
     

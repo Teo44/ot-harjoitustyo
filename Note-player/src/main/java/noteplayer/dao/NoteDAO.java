@@ -141,7 +141,6 @@ public class NoteDAO {
             res.close();
             con.close();
         } catch (Exception e) {
-            System.out.println(e);
         }
     }
 }
