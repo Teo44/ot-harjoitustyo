@@ -34,13 +34,9 @@ public class Main {
             } else if (input.equals("cd ..")) {
                 System.out.println(lister.moveUpOneDirectory());
             } else if (input.matches("cd .*")) {
-                // testing
                 System.out.println("changing directory");
                 String [] s = input.split(" ");
                 if (s.length == 2)  {
-                    //lister.changeDirectory(s[1]
-                    
-                    // print is for testing
                     System.out.println(lister.changeDirectory(s[1]));
                 }
             } else if (input.equals("os")) {
@@ -56,7 +52,6 @@ public class Main {
     
     
     private static void printFiles(Browser lister)    {
-        //System.out.println(Arrays.toString(lister.listFilesString()));
         if (lister.listFilesString() == null)   {
             return;
         }

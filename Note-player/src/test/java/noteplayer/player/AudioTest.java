@@ -191,4 +191,19 @@ public class AudioTest {
         assertNull(audio.getCurrentlyPlayingFormattedString());
     }
     
+    @Test
+    public void changingVolume()    {
+        audio.play("test_audio"+DS+"ukulele.wav");
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {}
+        audio.setVolume(0.3);
+        assertEquals(0.3, audio.getVolume());
+    }
+    
+    @Test
+    public void volumeWhenNotPlaying()  {
+        assertEquals(0.0, audio.getVolume());
+    }
+    
 }

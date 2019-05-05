@@ -364,8 +364,6 @@ public class Ui extends Application{
         for(int i = 0; i < files.length; i++)   {
              File file = files[i];
              Button button = new Button(names[i]);
-             // TODO: change directory if file is directory,
-             // otherwise attempt to play file
              button.setOnAction((event) ->  {
                  browser.changeDirectoryOrPlay(file, audio);
                  if (file.isFile()) {

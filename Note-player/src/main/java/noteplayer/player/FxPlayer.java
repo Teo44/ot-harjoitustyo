@@ -252,6 +252,13 @@ public class FxPlayer {
         mediaPlayer.setVolume(vol);
     }
     
+    public double getVolume()   {
+        if (mediaPlayer == null)    {
+            return 0;
+        }
+        return mediaPlayer.getVolume();
+    }
+    
     
     
 }

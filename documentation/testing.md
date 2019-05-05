@@ -8,7 +8,7 @@ its audio playback on some systems, and it only being used in the command-line i
 ### File browsing
 
 File browsing is tested with the included audio files and folders. The browser tests also include integration testing, which test playing audio 
-using both the browser and the player-classes.
+using both the browser and the player-classes. The nextFile() and previousFile() methods aren't tested very well due to files changing order between systems, making testing these difficult. 
 
 ### Audio playback
 
@@ -17,7 +17,15 @@ using the JavaFX Mediaplayer, the JavaFxThreadingRule-class is used for the init
 
 ### DAO-classes
 
-The NoteDAO and FileDAO classes are both tested using a test database file "test_db".
+The NoteDAO and FileDAO classes are both tested using a test database file "test_db". Exceptions when accessing the database are not tested.
+
+### Test coverage
+
+Test coverage, with the UI-classes and the deprecated, problematic Audio-class ignored.
+
+<img src="https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/screenshots/jacoco.png">
+
+While the row coverage is decent at 88%, the branch coverage is fairly low at 67%. This is mainly because of some interactions with files being difficult to test on multiple systems, and some JavaFX methods not working in tests, although working when manually tested.
 
 
 ## Manual testing

@@ -108,12 +108,22 @@ public class BrowserTest {
                 player.getCurrentlyPlayingString());
     }
     
-        @Test
-        public void playOrChangeDirectory2() {
+    @Test
+    public void playOrChangeDirectory2() {
         TestPlayer player = new TestPlayer();
         browser.changeDirectory("." + DS + "test_audio");
         File folder = new File("." + DS + "test_audio" + DS + "test_folder");
         browser.changeDirectoryOrPlay(folder, player);
         assertNull(player.getCurrentlyPlayingString());
     }
+        
+    @Test
+    public void playOrChangeDirectory3()    {
+        browser = new Browser();
+        TestPlayer player = new TestPlayer();
+        File folder = new File("." + DS + "test_audio");
+        browser.changeDirectoryOrPlay(folder, player);
+        assertEquals("." + DS + "test_audio", browser.getCurrentDirectory());
+    }
+    
 }
