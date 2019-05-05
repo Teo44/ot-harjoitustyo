@@ -16,6 +16,8 @@ Currently, Note-player has a graphical file browser and audio player. Users can 
 
 [Specifications](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/specifications.md)
 
+[Testing](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/testing.md)
+
 [Work hours](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/work_hours.md)
 
 [Architecture](https://github.com/Teo44/ot-harjoitustyo/blob/master/documentation/architecture.md)
